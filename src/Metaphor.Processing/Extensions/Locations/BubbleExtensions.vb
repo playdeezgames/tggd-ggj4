@@ -38,17 +38,4 @@ Friend Module BubbleExtensions
         Return bubble.Features.SingleOrDefault(Function(x) x.EntitySubtype = FeatureSubtypes.FUELING_STATION)
     End Function
 #End Region
-#Region "Job Board"
-    <Extension>
-    Friend Function CreateRecipient(bubble As ILocation) As ICharacter
-        Dim characterName As String = GenerateName(bubble)
-        Return bubble.CreateCharacter(CharacterSubtypes.RECIPIENT, characterName, AddressOf InitializeRecipient)
-    End Function
-    Private Sub InitializeRecipient(character As ICharacter)
-        character.CreateVerb(VerbSubtypes.DELIVER_PACKAGE, "Deliver Package")
-    End Sub
-    Private Function GenerateName(bubble As ILocation) As String
-        Return "Nacho Mama"
-    End Function
-#End Region
 End Module
