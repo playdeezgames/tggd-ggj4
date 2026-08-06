@@ -60,7 +60,6 @@ Friend Module CharacterVerbExtensions
     <Extension>
     Sub Perform(verb As IVerb, character As ICharacter, actor As ICharacter)
         Dim handler As PerformHandler = Nothing
-        verb.World.AddMessage(verb.Flavor)
         If performTable.TryGetValue(verb.EntitySubtype, handler) Then
             handler.Invoke(verb, character, actor)
             Return

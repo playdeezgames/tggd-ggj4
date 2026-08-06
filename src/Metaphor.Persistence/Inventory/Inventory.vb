@@ -50,7 +50,7 @@ Friend Class Inventory
         Return If(inventoryId.HasValue, New Inventory(world, data, inventoryId.Value), Nothing)
     End Function
 
-    Public Function CreateItem(entitySubtype As String, name As String, flavor As String, Optional initializer As ItemInitializer = Nothing) As IItem Implements IInventory.CreateItem
+    Public Function CreateItem(entitySubtype As String, name As String, Optional initializer As ItemInitializer = Nothing) As IItem Implements IInventory.CreateItem
         Dim itemId = Guid.NewGuid
         _data.Entities(itemId) = New TGGD.Provision.EntityData With
             {
@@ -58,8 +58,7 @@ Friend Class Inventory
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {Metadatas.ENTITY_SUBTYPE, entitySubtype},
-                    {Metadatas.NAME, name},
-                    {Metadatas.FLAVOR, flavor}
+                    {Metadatas.NAME, name}
                 },
                 .Yokes = New Dictionary(Of String, Guid) From
                 {

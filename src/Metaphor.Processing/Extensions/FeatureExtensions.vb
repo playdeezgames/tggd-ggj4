@@ -8,7 +8,6 @@ Friend Module FeatureExtensions
         world.ClearMessages()
         Dim character = world.Avatar
         world.AddMessage($"{character.Name} interacts with {feature.Name}.")
-        world.AddMessage(feature.Flavor)
         Dim itemStacks = feature.Inventory.ItemStacks
         If itemStacks.Any Then
             world.AddMessage("Item Stacks:")

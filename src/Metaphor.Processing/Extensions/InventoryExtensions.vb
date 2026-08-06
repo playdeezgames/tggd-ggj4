@@ -16,15 +16,13 @@ Friend Module InventoryExtensions
     Private Sub CreateBagOGrain(inventory As IInventory)
         inventory.CreateItem(
             ItemSubtypes.BAG_O_GRAIN,
-            GetItemTypeName(ItemSubtypes.BAG_O_GRAIN),
-            "This is a bag of grain. No, it isn't Irish. The `O'` means `of`!")
+            GetItemTypeName(ItemSubtypes.BAG_O_GRAIN))
     End Sub
 
     Private Sub CreateHardtack(inventory As IInventory)
         inventory.CreateItem(
             ItemSubtypes.HARDTACK,
             GetItemTypeName(ItemSubtypes.HARDTACK),
-            "This is food, technically.",
             AddressOf InitializeHardtack)
     End Sub
     <Extension>
@@ -34,11 +32,11 @@ Friend Module InventoryExtensions
 
     Private Sub InitializeHardtack(item As IItem)
         item.SetCounter(Counters.STOMACH, 10)
-        item.CreateVerb(VerbSubtypes.EAT, "Eat", $"You eat the {item.Name}.")
+        item.CreateVerb(VerbSubtypes.EAT, "Eat")
     End Sub
     <Extension>
     Friend Function CreateDeliveryItem(inventory As IInventory, recipient As ICharacter) As IItem
-        Dim item = inventory.CreateItem(ItemSubtypes.PACKAGE, "Package", "Its a package. You deliver them.")
+        Dim item = inventory.CreateItem(ItemSubtypes.PACKAGE, "Package")
         item.SetRecipient(recipient)
         Return item
     End Function

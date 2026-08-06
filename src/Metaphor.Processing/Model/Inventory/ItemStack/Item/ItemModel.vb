@@ -26,7 +26,6 @@ Friend Class ItemModel
         Dim character = world.Avatar
         world.ClearMessages()
         character.World.AddMessage($"{character.Name} takes {item.Name}.")
-        character.World.AddMessage(item.Flavor)
         item.Container = character.Inventory
     End Sub
 
@@ -41,7 +40,6 @@ Friend Class ItemModel
     Public Sub Describe() Implements IItemModel.Describe
         Dim world = item.World
         world.ClearMessages()
-        world.AddMessage(item.Flavor)
     End Sub
 
     Friend Shared Function Create(item As IItem) As IItemModel

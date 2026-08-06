@@ -51,12 +51,6 @@ Public Class World
         End Set
     End Property
 
-    Public ReadOnly Property Bubbles As IEnumerable(Of ILocation) Implements IWorld.Bubbles
-        Get
-            Return GetYokage(Yokages.BUBBLES).Select(Function(x) Location.Create(Me, Data, x))
-        End Get
-    End Property
-
     Private ReadOnly persister As IPersister
 
     Public Async Function Save(filename As String) As Task Implements IWorld.Save
@@ -88,7 +82,7 @@ Public Class World
         Data.Messages.Add(messageData)
     End Sub
 
-    Public Function CreateLocation(entitySubtype As String, name As String, flavor As String, Optional initializer As LocationInitializer = Nothing) As ILocation Implements IWorld.CreateLocation
+    Public Function CreateLocation(entitySubtype As String, name As String, Optional initializer As LocationInitializer = Nothing) As ILocation Implements IWorld.CreateLocation
         Dim locationId = Guid.NewGuid
         Data.Entities(locationId) = New EntityData With
             {
@@ -96,18 +90,13 @@ Public Class World
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {Metadatas.ENTITY_SUBTYPE, entitySubtype},
-                    {Metadatas.NAME, name},
-                    {Metadatas.FLAVOR, flavor}
+                    {Metadatas.NAME, name}
                 }
             }
         Dim result = Location.Create(Me, Data, locationId)
         initializer?.Invoke(result)
         Return result
     End Function
-
-    Public Sub AddBubble(bubble As ILocation) Implements IWorld.AddBubble
-        AddToYokage(Yokages.BUBBLES, bubble.EntityId)
-    End Sub
 
     Public Function GetLocation(locationId As Guid?) As ILocation Implements IWorld.GetLocation
         Return Location.Create(Me, Data, locationId)

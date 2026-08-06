@@ -8,7 +8,6 @@ Friend Module LocationVerbExtensions
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
             {VerbSubtypes.MOVE, AddressOf CanMove},
-            {VerbSubtypes.DOCK, AddressOf CanDock},
             {VerbSubtypes.SET_HEADING, AddressOf CanSetHeading},
             {VerbSubtypes.SET_SPEED, AddressOf CanSetSpeed},
             {VerbSubtypes.SET_HYDROPLANE, AddressOf CanSetHydroplane},
@@ -56,12 +55,6 @@ Friend Module LocationVerbExtensions
         Return Not ship.IsSnorkelRaised() AndAlso Not ship.IsDocked()
     End Function
 
-    Private Function CanDock(verb As IVerb, ship As ILocation, actor As ICharacter) As Boolean
-        Return Not ship.IsSnorkelRaised() AndAlso
-            Not ship.IsDocked() AndAlso
-            verb.World.Bubbles.Any(Function(x) x.DistanceTo(ship) <= DOCKING_DISTANCE AndAlso x.DepthDifference(ship) <= MAXIMUM_DEPTH_DIFFERENCE)
-    End Function
-
     Private Function CanMove(verb As IVerb, ship As ILocation, actor As ICharacter) As Boolean
         Return Not ship.IsSnorkelRaised() AndAlso Not ship.IsDocked() AndAlso ship.GetSpeed() > SPEED_FULL_STOP AndAlso ship.GetBattery() > 0.0
     End Function
@@ -81,7 +74,6 @@ Friend Module LocationVerbExtensions
             {VerbSubtypes.SET_SPEED, AddressOf HandleSetSpeed},
             {VerbSubtypes.SET_HYDROPLANE, AddressOf HandleSetHydroplane},
             {VerbSubtypes.MOVE, AddressOf HandleMove},
-            {VerbSubtypes.DOCK, AddressOf HandleDock},
             {VerbSubtypes.UNDOCK, AddressOf HandleUndock},
             {VerbSubtypes.EMBARK, AddressOf HandleEmbark},
             {VerbSubtypes.DISEMBARK, AddressOf HandleDisembark},
@@ -151,16 +143,6 @@ Friend Module LocationVerbExtensions
         ship.Undock()
     End Sub
 
-    Private Sub HandleDock(verb As IVerb, ship As ILocation, actor As ICharacter)
-        Dim bubble = verb.World.Bubbles.Single(Function(x) x.DistanceTo(ship) <= DOCKING_DISTANCE)
-        ship.ReplenishOxygen()
-        ship.HeadFor(Nothing)
-        ship.Dock(bubble)
-        bubble.Dock(ship)
-        bubble.SetTag(Tags.KNOWN)
-        verb.World.Avatar.AddKnownBubble(bubble)
-    End Sub
-
     Private Sub HandleMove(verb As IVerb, location As ILocation, actor As ICharacter)
         Dim world = verb.World
         Dim avatar = world.Avatar
@@ -193,7 +175,6 @@ Friend Module LocationVerbExtensions
     <Extension>
     Sub Perform(verb As IVerb, location As ILocation, actor As ICharacter)
         Dim handler As PerformHandler = Nothing
-        verb.World.AddMessage(verb.Flavor)
         If performTable.TryGetValue(verb.EntitySubtype, handler) Then
             handler.Invoke(verb, location, actor)
             Return

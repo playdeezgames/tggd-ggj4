@@ -14,7 +14,6 @@ Friend Module CharacterExtensions
             Return
         End If
         Dim location = character.Location
-        World.AddMessage(location.Flavor)
         location.Describe()
         ShowOtherCharacters(character)
         ShowFeatures(character)
@@ -48,7 +47,6 @@ Friend Module CharacterExtensions
     Friend Sub ShowStatus(character As ICharacter)
         Dim world = character.World
         world.AddMessage($"{character.Name}'s Status:")
-        world.AddMessage(character.Flavor)
         world.AddMessage($"Health: {character.GetCounterStatistic(Counters.HEALTH)}")
         world.AddMessage($"Satiety: {character.GetCounterStatistic(Counters.SATIETY)}")
         world.AddMessage($"Stomach: {character.GetCounterStatistic(Counters.STOMACH)}")

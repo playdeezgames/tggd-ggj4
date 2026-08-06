@@ -47,7 +47,7 @@ Friend Class Location
         Return If(locationId.HasValue, New Location(world, data, locationId.Value), Nothing)
     End Function
 
-    Public Function CreateCharacter(entitySubtype As String, name As String, pronouns As String, flavor As String, Optional initialize As CharacterInitializer = Nothing) As ICharacter Implements ILocation.CreateCharacter
+    Public Function CreateCharacter(entitySubtype As String, name As String, Optional initialize As CharacterInitializer = Nothing) As ICharacter Implements ILocation.CreateCharacter
         Dim characterId = Guid.NewGuid
         _data.Entities(characterId) = New EntityData With
             {
@@ -59,9 +59,7 @@ Friend Class Location
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {Metadatas.ENTITY_SUBTYPE, entitySubtype},
-                    {Metadatas.NAME, name},
-                    {Metadatas.FLAVOR, flavor},
-                    {Metadatas.PRONOUNS, pronouns}
+                    {Metadatas.NAME, name}
                 }
             }
         AddToYokage(Yokages.CHARACTERS, characterId)
@@ -70,7 +68,7 @@ Friend Class Location
         Return result
     End Function
 
-    Public Function CreateFeature(entitySubtype As String, name As String, flavor As String, Optional initializer As FeatureInitializer = Nothing) As IFeature Implements ILocation.CreateFeature
+    Public Function CreateFeature(entitySubtype As String, name As String, Optional initializer As FeatureInitializer = Nothing) As IFeature Implements ILocation.CreateFeature
         Dim featureId = Guid.NewGuid
         _data.Entities(featureId) = New EntityData With
             {
@@ -82,8 +80,7 @@ Friend Class Location
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {Metadatas.ENTITY_SUBTYPE, entitySubtype},
-                    {Metadatas.NAME, name},
-                    {Metadatas.FLAVOR, flavor}
+                    {Metadatas.NAME, name}
                 }
             }
         AddToYokage(Yokages.FEATURES, featureId)

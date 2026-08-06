@@ -15,7 +15,6 @@ Friend Module ShipExtensions
         If ship.IsSnorkelRaised Then
             world.AddMessage($"Snorkel: Raised")
         End If
-        ShowVisibleBubbles(world, ship)
         ShowBoundFor(ship)
     End Sub
     Private Sub ShowBoundFor(ship As ILocation)
@@ -23,18 +22,6 @@ Friend Module ShipExtensions
         If boundFor IsNot Nothing Then
             Dim world = ship.World
             world.AddMessage($"Bound for: {boundFor.GetBubbleName()}")
-        End If
-    End Sub
-    Private Sub ShowVisibleBubbles(world As IWorld, ship As ILocation)
-        If ship.IsDocked Then Return
-        Dim visibility = ship.GetVisibility()
-        Dim visibleBubbles = world.Bubbles.Where(Function(x) x.IsVisibleTo(ship)).OrderBy(Function(x) x.DistanceTo(ship))
-        If visibleBubbles.Any Then
-            world.AddMessage("Visible Bubbles:")
-            For Each visibleBubble In visibleBubbles
-                world.Avatar.AddKnownBubble(visibleBubble)
-                world.AddMessage($"- {visibleBubble.GetBubbleName()}(Distance: {visibleBubble.DistanceTo(ship):f2}nm, Heading: {ship.HeadingTo(visibleBubble):f2}°, Depth: {visibleBubble.GetDepth():f2}ftm)")
-            Next
         End If
     End Sub
 #End Region

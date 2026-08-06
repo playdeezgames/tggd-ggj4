@@ -16,18 +16,17 @@ Friend Module ShipInitializer
                    ship.InitializeDimension(Dimensions.FUEL, 500, 0, 1000)
                    ship.InitializeDimension(Dimensions.ENGINE, 100, 0, 500)
                    ship.SetDimension(Dimensions.VISIBILITY, 100.0)
-                   ship.CreateVerb(VerbSubtypes.MOVE, "Move", "Steady as she goes.")
-                   ship.CreateVerb(VerbSubtypes.DOCK, "Dock", "You moor the ship to the pier.")
-                   ship.CreateVerb(VerbSubtypes.UNDOCK, "Undock", "You cast away from the pier.")
-                   ship.CreateVerb(VerbSubtypes.SET_HEADING, "Set Heading", "You use the helm to set a new heading.")
-                   ship.CreateVerb(VerbSubtypes.SET_SPEED, "Set Speed", "You use the engines to set a new speed.")
-                   ship.CreateVerb(VerbSubtypes.SET_HYDROPLANE, "Set Hydroplane", "You angle the hydroplane to change depth when moving.")
-                   ship.CreateVerb(VerbSubtypes.DISEMBARK, "Disembark", "You step off the ship.")
-                   ship.CreateVerb(VerbSubtypes.RAISE_SNORKEL, "Raise Snorkel", "You raise the snorkel mast.")
-                   ship.CreateVerb(VerbSubtypes.LOWER_SNORKEL, "Lower Snorkel", "You lower the snorkel mast.")
-                   ship.CreateVerb(VerbSubtypes.CHARGE_BATTERY, "Charge Batteries", "You turn on the engines to charge the batteries.")
-                   ship.CreateCharacter(CharacterSubtypes.N00B, context.ChosenName, context.ChosenPronouns, $"{context.ChosenName}'s pronouns are {context.ChosenPronouns}.", InitializeAvatar(context))
-                   ship.CreateFeature(FeatureSubtypes.CARGO_HOLD, "Cargo Hold", "This is the cargo hold. It is where you hold yer cargo.", AddressOf InitializeCargoHold)
+                   ship.CreateVerb(VerbSubtypes.MOVE, "Move")
+                   ship.CreateVerb(VerbSubtypes.UNDOCK, "Undock")
+                   ship.CreateVerb(VerbSubtypes.SET_HEADING, "Set Heading")
+                   ship.CreateVerb(VerbSubtypes.SET_SPEED, "Set Speed")
+                   ship.CreateVerb(VerbSubtypes.SET_HYDROPLANE, "Set Hydroplane")
+                   ship.CreateVerb(VerbSubtypes.DISEMBARK, "Disembark")
+                   ship.CreateVerb(VerbSubtypes.RAISE_SNORKEL, "Raise Snorkel")
+                   ship.CreateVerb(VerbSubtypes.LOWER_SNORKEL, "Lower Snorkel")
+                   ship.CreateVerb(VerbSubtypes.CHARGE_BATTERY, "Charge Batteries")
+                   ship.CreateCharacter(CharacterSubtypes.N00B, context.ChosenName, InitializeAvatar(context))
+                   ship.CreateFeature(FeatureSubtypes.CARGO_HOLD, "Cargo Hold", AddressOf InitializeCargoHold)
                End Sub
     End Function
 
@@ -50,8 +49,8 @@ Friend Module ShipInitializer
                    character.InitializeDimension(Dimensions.JOOLS, 0.0, 0.0, Double.MaxValue)
 #End If
                    Utility.Repeat(10, Sub() character.Inventory.CreateItemOfType(ItemSubtypes.HARDTACK))
-                   character.CreateVerb(VerbSubtypes.HEAD_FOR_KNOWN_BUBBLE, "Head for known bubble...", String.Empty)
-                   character.CreateVerb(VerbSubtypes.WAIT, "Wait", "You wait a while...")
+                   character.CreateVerb(VerbSubtypes.HEAD_FOR_KNOWN_BUBBLE, "Head for known bubble...")
+                   character.CreateVerb(VerbSubtypes.WAIT, "Wait")
                End Sub
     End Function
 End Module

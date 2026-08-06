@@ -40,19 +40,12 @@ Friend Module BubbleExtensions
 #End Region
 #Region "Job Board"
     <Extension>
-    Friend Sub CreateJobBoard(bubble As ILocation)
-        bubble.CreateFeature(FeatureSubtypes.JOB_BOARD, "Job Board", "Here are listed various errand person jobs for making a small amount of jools.", AddressOf InitializeJobBoard)
-    End Sub
-    Private Sub InitializeJobBoard(feature As IFeature)
-        feature.CreateVerb(VerbSubtypes.ACCEPT_DELIVERY, "Take Delivery Assignment", "Desperate for jools, you will take whatever whereever!")
-    End Sub
-    <Extension>
     Friend Function CreateRecipient(bubble As ILocation) As ICharacter
         Dim characterName As String = GenerateName(bubble)
-        Return bubble.CreateCharacter(CharacterSubtypes.RECIPIENT, characterName, "They/Them", $"This is {characterName} of {bubble.Name}.", AddressOf InitializeRecipient)
+        Return bubble.CreateCharacter(CharacterSubtypes.RECIPIENT, characterName, AddressOf InitializeRecipient)
     End Function
     Private Sub InitializeRecipient(character As ICharacter)
-        character.CreateVerb(VerbSubtypes.DELIVER_PACKAGE, "Deliver Package", "You deliver the package, right in their package delivery hole.")
+        character.CreateVerb(VerbSubtypes.DELIVER_PACKAGE, "Deliver Package")
     End Sub
     Private Function GenerateName(bubble As ILocation) As String
         Return "Nacho Mama"

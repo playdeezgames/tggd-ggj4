@@ -30,7 +30,6 @@ Friend Class CharacterModel
     Public Sub Examine() Implements ICharacterModel.Examine
         Dim world = character.World
         world.ClearMessages()
-        world.AddMessage(character.Flavor)
     End Sub
     Friend Shared Function Create(character As ICharacter) As ICharacterModel
         Return New CharacterModel(character)

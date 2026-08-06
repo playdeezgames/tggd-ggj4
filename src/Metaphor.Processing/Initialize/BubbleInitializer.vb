@@ -8,8 +8,7 @@ Friend Module BubbleInitializer
         Do While bubbleCoordinates.Count <> 0
             Dim name = bubbleNames.Dequeue
             Dim coordinate = bubbleCoordinates.Dequeue
-            Dim bubble = world.CreateLocation(LocationSubtypes.BUBBLE, name, $"This bubble is named `{name}`.", InitializeBubble(context, coordinate))
-            world.AddBubble(bubble)
+            Dim bubble = world.CreateLocation(LocationSubtypes.BUBBLE, name, InitializeBubble(context, coordinate))
         Loop
     End Sub
 
@@ -19,8 +18,7 @@ Friend Module BubbleInitializer
                    bubble.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
                    bubble.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
                    bubble.SetDimension(Dimensions.DEPTH, RNG.FromRange(context.MinimumBubbleDepth, context.MaximumBubbleDepth))
-                   bubble.CreateVerb(VerbSubtypes.EMBARK, "Embark", "You step onto the ship.")
-                   bubble.CreateJobBoard()
+                   bubble.CreateVerb(VerbSubtypes.EMBARK, "Embark")
                    bubble.CreateFuelingStation()
                    bubble.CreateShoppe()
                End Sub
