@@ -23,7 +23,6 @@ Friend Class CharactersModel
 
     Public Sub ShowList() Implements ICharactersModel.ShowList
         world.ClearMessages()
-        world.Avatar.ShowOtherCharacters()
     End Sub
 
     Friend Shared Function Create(entity As IWorld) As ICharactersModel

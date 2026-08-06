@@ -47,22 +47,22 @@ Friend Class NavigationMenu
     End Function
 
     Private Shared Function ChooseAvatarVerb(verbModel As IVerbModel) As LaunchDelegate
-        Return Function(c, m, p) DialogChoice.Create(Not m.Avatar.IsDead AndAlso verbModel.IsEnabled, verbModel.Name, AvatarVerbActivity.Launch(c, m, p, verbModel))
+        Return Function(c, m, p) DialogChoice.Create(verbModel.IsEnabled, verbModel.Name, AvatarVerbActivity.Launch(c, m, p, verbModel))
     End Function
 
     Private Function ChooseLocationVerb(verbModel As IVerbModel) As LaunchDelegate
-        Return Function(c, m, p) DialogChoice.Create(Not m.Avatar.IsDead AndAlso verbModel.IsEnabled, verbModel.Name, LocationVerbActivity.Launch(c, m, p, verbModel))
+        Return Function(c, m, p) DialogChoice.Create(verbModel.IsEnabled, verbModel.Name, LocationVerbActivity.Launch(c, m, p, verbModel))
     End Function
 
     Private Function ChooseCharacters(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.Create(Not model.Avatar.IsDead AndAlso model.Location.Characters.HasAny, "Characters...", CharactersMenu.Launch(context, model, previous))
+        Return DialogChoice.Create(model.Location.Characters.HasAny, "Characters...", CharactersMenu.Launch(context, model, previous))
     End Function
 
     Private Function ChooseInventory(
                                     context As IDisplayContext,
                                     model As IWorldModel,
                                     previous As DialogSource) As IDialogChoice
-        Return DialogChoice.Create(Not model.Avatar.IsDead AndAlso model.Avatar.Inventory.HasItems, "Inventory...", InventoryMenu.Launch(context, model, previous))
+        Return DialogChoice.Create(model.Avatar.Inventory.HasItems, "Inventory...", InventoryMenu.Launch(context, model, previous))
     End Function
 
     Private Function ChooseLook(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
@@ -70,7 +70,7 @@ Friend Class NavigationMenu
     End Function
 
     Private Function ChooseGround(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.Create(Not model.Avatar.IsDead AndAlso model.Location.Ground.HasItems, "Ground...", GroundMenu.Launch(context, model, previous))
+        Return DialogChoice.Create(model.Location.Ground.HasItems, "Ground...", GroundMenu.Launch(context, model, previous))
     End Function
 
     Private Function ChooseGameMenu(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice

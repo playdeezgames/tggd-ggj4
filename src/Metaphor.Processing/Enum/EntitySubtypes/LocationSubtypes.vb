@@ -1,4 +1,3 @@
 ﻿Friend Module LocationSubtypes
-    Friend Const SHIP As String = NameOf(SHIP)
-    Friend Const BUBBLE As String = NameOf(BUBBLE)
+    Friend Const BLUE_ROOM As String = NameOf(BLUE_ROOM)
 End Module

@@ -16,30 +16,13 @@ Friend Module ShipInitializer
                    ship.InitializeDimension(Dimensions.FUEL, 500, 0, 1000)
                    ship.InitializeDimension(Dimensions.ENGINE, 100, 0, 500)
                    ship.SetDimension(Dimensions.VISIBILITY, 100.0)
-                   ship.CreateVerb(VerbSubtypes.MOVE, "Move")
-                   ship.CreateVerb(VerbSubtypes.UNDOCK, "Undock")
-                   ship.CreateVerb(VerbSubtypes.SET_HEADING, "Set Heading")
-                   ship.CreateVerb(VerbSubtypes.SET_SPEED, "Set Speed")
-                   ship.CreateVerb(VerbSubtypes.SET_HYDROPLANE, "Set Hydroplane")
-                   ship.CreateVerb(VerbSubtypes.DISEMBARK, "Disembark")
-                   ship.CreateVerb(VerbSubtypes.RAISE_SNORKEL, "Raise Snorkel")
-                   ship.CreateVerb(VerbSubtypes.LOWER_SNORKEL, "Lower Snorkel")
-                   ship.CreateVerb(VerbSubtypes.CHARGE_BATTERY, "Charge Batteries")
                    ship.CreateCharacter(CharacterSubtypes.N00B, context.ChosenName, InitializeAvatar(context))
-                   ship.CreateFeature(FeatureSubtypes.CARGO_HOLD, "Cargo Hold", AddressOf InitializeCargoHold)
                End Sub
     End Function
-
-    Private Sub InitializeCargoHold(feature As IFeature)
-#If DEBUG Then
-        Utility.Repeat(100, Sub() feature.Inventory.CreateItemOfType(ItemSubtypes.HARDTACK))
-#End If
-    End Sub
 
     Private Function InitializeAvatar(context As IInitializationContext) As CharacterInitializer
         Return Sub(character)
                    character.World.Avatar = character
-                   character.SetShip(character.Location)
                    character.InitializeCounter(Counters.HEALTH, 100, 0, 100)
                    character.InitializeCounter(Counters.SATIETY, 100, 0, 100)
                    character.InitializeCounter(Counters.STOMACH, 0, 0, 50)
@@ -48,9 +31,6 @@ Friend Module ShipInitializer
 #Else
                    character.InitializeDimension(Dimensions.JOOLS, 0.0, 0.0, Double.MaxValue)
 #End If
-                   Utility.Repeat(10, Sub() character.Inventory.CreateItemOfType(ItemSubtypes.HARDTACK))
-                   character.CreateVerb(VerbSubtypes.HEAD_FOR_KNOWN_BUBBLE, "Head for known bubble...")
-                   character.CreateVerb(VerbSubtypes.WAIT, "Wait")
                End Sub
     End Function
 End Module

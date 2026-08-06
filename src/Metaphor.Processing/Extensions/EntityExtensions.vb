@@ -24,18 +24,6 @@ Friend Module EntityExtensions
         entity.SetDimension(dimensionId, value)
     End Sub
     <Extension>
-    Friend Function GetVisibility(entity As IMetaphorEntity) As Double
-        Return entity.GetDimension(Dimensions.VISIBILITY)
-    End Function
-    <Extension>
-    Friend Sub SetJools(entity As IMetaphorEntity, jools As Double)
-        entity.SetDimension(Dimensions.JOOLS, jools)
-    End Sub
-    <Extension>
-    Friend Function GetJools(entity As IMetaphorEntity) As Double
-        Return entity.GetDimension(Dimensions.JOOLS)
-    End Function
-    <Extension>
     Friend Function GetCounterStatistic(entity As IMetaphorEntity, counter As String) As String
         Return $"{entity.GetCounter(counter)}/{entity.GetCounterMaximum(counter)}"
     End Function

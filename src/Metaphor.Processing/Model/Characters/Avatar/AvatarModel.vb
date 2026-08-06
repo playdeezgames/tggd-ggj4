@@ -21,50 +21,14 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Ship As IShipModel Implements IAvatarModel.Ship
-        Get
-            Return ShipModel.Create(avatar.GetShip())
-        End Get
-    End Property
-
-    Public ReadOnly Property IsDead As Boolean Implements IAvatarModel.IsDead
-        Get
-            Return avatar.IsDead
-        End Get
-    End Property
-
-    Public ReadOnly Property CanStow As Boolean Implements IAvatarModel.CanStow
-        Get
-            Return avatar.Location.Features.Any(Function(x) x.IsCargoHold())
-        End Get
-    End Property
-
-    Public ReadOnly Property KnownBubbles As IAvatarKnownBubblesModel Implements IAvatarModel.KnownBubbles
-        Get
-            Return AvatarKnownBubblesModel.Create(avatar)
-        End Get
-    End Property
-
     Public ReadOnly Property Mode As String Implements IAvatarModel.Mode
         Get
-            Return avatar.GetMode()
+            Return avatar.Mode
         End Get
     End Property
 
     Public Sub ShowStatus() Implements IAvatarModel.ShowStatus
         avatar.World.ClearMessages()
-        avatar.ShowStatus()
-    End Sub
-
-    Public Sub Look() Implements IAvatarModel.Look
-        avatar.World.ClearMessages()
-        avatar.Look()
-    End Sub
-
-    Public Sub BuyFuel(units As Double) Implements IAvatarModel.BuyFuel
-        avatar.World.ClearMessages()
-        avatar.BuyFuel(units)
-        avatar.SetMode(Nothing)
     End Sub
 
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel

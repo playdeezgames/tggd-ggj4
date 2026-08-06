@@ -24,14 +24,9 @@ Friend Class InventoryItemStackMenu
                 Append(AddressOf ChooseDropOne).
                 Append(AddressOf ChooseDropHalf).
                 Append(AddressOf ChooseDropAll).
-                Append(AddressOf ChooseStow).
                 Concat(itemStackModel.Items.Select(AddressOf ChooseItem))
         End Get
     End Property
-
-    Private Function ChooseStow(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.Create(model.Avatar.CanStow, "Stow...", StowFromItemStackPrompt.Launch(context, model, previous, itemStackModel))
-    End Function
 
     Private Function ChooseDropAll(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
         Return DialogChoice.Create(itemStackModel.Count > 1, "Drop All", DropItemStackActivity.Launch(context, model, previous, itemStackModel, itemStackModel.Count))

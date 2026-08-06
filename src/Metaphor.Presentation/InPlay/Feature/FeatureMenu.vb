@@ -40,7 +40,6 @@ Friend Class FeatureMenu
     Friend Shared Function Launch(c As IDisplayContext, m As IWorldModel, p As DialogSource, featureModel As IFeatureModel) As DialogSource
         Return Function()
                    If featureModel.Exists() Then
-                       featureModel.Examine()
                        Return New FeatureMenu(c, m, p, featureModel)
                    End If
                    Return InPlay.Launch(c, m, p).Invoke()

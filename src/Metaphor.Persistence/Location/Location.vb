@@ -59,7 +59,8 @@ Friend Class Location
                 .Metadatas = New Dictionary(Of String, String) From
                 {
                     {Metadatas.ENTITY_SUBTYPE, entitySubtype},
-                    {Metadatas.NAME, name}
+                    {Metadatas.NAME, name},
+                    {Metadatas.MODE, String.Empty}
                 }
             }
         AddToYokage(Yokages.CHARACTERS, characterId)

@@ -5,9 +5,7 @@ Friend Module WorldInitializer
     <Extension>
     Friend Sub Initialize(world As IWorld, context As IInitializationContext)
         world.Clear()
-        BubbleInitializer.Initialize(world, context)
-        world.CreateLocation(LocationSubtypes.SHIP, "The Blue Ship", ShipInitializer.Initialize(context))
+        world.CreateLocation(LocationSubtypes.BLUE_ROOM, "The Blue Room", ShipInitializer.Initialize(context))
         world.AddMessage("Avast!")
-        world.Avatar.Look()
     End Sub
 End Module

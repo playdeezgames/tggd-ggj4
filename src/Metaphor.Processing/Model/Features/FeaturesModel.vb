@@ -23,7 +23,6 @@ Friend Class FeaturesModel
 
     Public Sub ShowList() Implements IFeaturesModel.ShowList
         world.ClearMessages()
-        world.Avatar.ShowFeatures()
     End Sub
 
     Friend Shared Function Create(entity As IWorld) As IFeaturesModel

@@ -28,6 +28,12 @@ Friend Class Character
         End Get
     End Property
 
+    Public ReadOnly Property Mode As String Implements ICharacter.Mode
+        Get
+            Return TryGetMetadata(Metadatas.MODE)
+        End Get
+    End Property
+
     Protected Overrides ReadOnly Property Data As EntityData
         Get
             Return _data.Entities(EntityId)

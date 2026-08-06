@@ -51,16 +51,6 @@ Friend Class ItemStackModel
         Utility.Repeat(takeCount, Sub() ItemStack.Top.Container = character.Inventory)
     End Sub
 
-    Public Sub Stow(stowCount As Integer) Implements IItemStackModel.Stow
-        stowCount = Math.Min(stowCount, ItemStack.Count)
-        Dim world = ItemStack.Top.World
-        Dim character = world.Avatar
-        Dim cargoHold = character.Location.GetCargoHold()
-        world.ClearMessages()
-        character.World.AddMessage($"{character.Name} stows {stowCount} {ItemStack.Top.Name}.")
-        Utility.Repeat(stowCount, Sub() ItemStack.Top.Container = cargoHold.Inventory)
-    End Sub
-
     Friend Shared Function Create(itemStack As IItemStack) As IItemStackModel
         Return New ItemStackModel(itemStack)
     End Function

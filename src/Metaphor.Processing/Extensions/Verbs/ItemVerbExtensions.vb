@@ -20,19 +20,7 @@ Friend Module ItemVerbExtensions
 
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
-            {VerbSubtypes.EAT, AddressOf HandleEat}
         }
-
-    Private Sub HandleEat(verb As IVerb, item As IItem, actor As ICharacter)
-        Dim world = verb.World
-        Dim avatar = world.Avatar
-        world.AddMessage($"{avatar.Name} eats {item.Name}.")
-        Dim stomach = item.GetCounter(Counters.STOMACH)
-        world.AddMessage($"{avatar.Name} gains {stomach} stomach.")
-        avatar.ChangeCounter(Counters.STOMACH, stomach)
-        world.AddMessage($"{avatar.Name} now has {avatar.GetStomach}/{avatar.GetMaximumStomach} stomach.")
-        item.Remove()
-    End Sub
 
     <Extension>
     Sub Perform(verb As IVerb, item As IItem, actor As ICharacter)

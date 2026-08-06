@@ -2,4 +2,5 @@
 Public Interface ICharacter
     Inherits IMetaphorEntity
     Property Location As ILocation
+    ReadOnly Property Mode As String
 End Interface
