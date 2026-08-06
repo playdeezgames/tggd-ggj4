@@ -15,10 +15,10 @@ Friend Class ChooseNamePrompt
     End Function
 
     Public Overrides Function Run() As IDialogPrompt
-        Return DialogPrompt.CreateStringPrompt("What is your name, seaman?", AddressOf ChooseName)
+        Return DialogPrompt.CreateStringPrompt("What is your name, girl?", AddressOf ChooseName)
     End Function
 
     Private Function ChooseName(value As String) As IDialog
-        Return ChoosePronounsPrompt.Launch(Context, Model, Previous, If(String.IsNullOrWhiteSpace(value), DEFAULT_NAME, value)).Invoke()
+        Return EmbarkActivity.Launch(Context, Model, Previous, value).Invoke()
     End Function
 End Class

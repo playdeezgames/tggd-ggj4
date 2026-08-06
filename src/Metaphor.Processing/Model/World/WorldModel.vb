@@ -39,7 +39,7 @@ Public Class WorldModel
 
     Public Sub Embark(chosenName As String, chosenPronouns As String) Implements IWorldModel.Embark
         Abandon()
-        Entity.Initialize(InitializationContext.Create(chosenName, chosenPronouns))
+        Entity.Initialize(InitializationContext.Create(chosenName))
     End Sub
 
     Public Sub Abandon() Implements IWorldModel.Abandon

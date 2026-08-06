@@ -10,11 +10,11 @@ Public Class Title
     End Sub
 
     Public Overrides Function Run() As IDialogPrompt
-        Context.Render("Seamen of SPLORR!!", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.TITLE}})
+        Context.Render("TGGD-GGJ4", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.TITLE}})
         Context.Render("A Production of ", newLine:=False)
         Context.Render("TheGrumpyGameDev", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.LINK}, {HintNames.URL, "https://thegrumpygamedev.itch.io/"}})
         Context.Render("Made for ", newLine:=False)
-        Context.Render("Underwater Jam", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.LINK}, {HintNames.URL, "https://itch.io/jam/underwater-jam"}})
+        Context.Render("Girly Game Jam #4", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.LINK}, {HintNames.URL, "https://itch.io/jam/girly-game-jam-4"}})
         Context.Render("Sponsored by: ", newLine:=False)
         Context.Render("UMLAUT.FYI!", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.LINK}, {HintNames.URL, "https://umlaut.fyi/"}})
         Return DialogPrompt.CreateChoicePrompt(

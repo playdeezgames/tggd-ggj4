@@ -30,8 +30,4 @@ Friend Module CharacterVerbExtensions
             Return
         End If
     End Sub
-    <Extension>
-    Friend Function GetKnownBubbles(character As ICharacter) As IEnumerable(Of ILocation)
-        Return character.GetYokage(Yokages.KNOWN_BUBBLES).Select(AddressOf character.World.GetLocation)
-    End Function
 End Module
