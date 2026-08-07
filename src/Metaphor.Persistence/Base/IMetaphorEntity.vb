@@ -12,4 +12,13 @@ Public Interface IMetaphorEntity
     ReadOnly Property Verbs As IEnumerable(Of IVerb)
     ReadOnly Property Inventory As IInventory
     Sub AddMessage(text As String, Optional hints As IDictionary(Of String, String) = Nothing)
+    Sub InitializeCounter(counterId As String, value As Integer, minimum As Integer, maximum As Integer)
+    Function GetCounterPercentage(counterId As String) As String
+    Sub InitializeDimension(
+                            dimensionId As String,
+                            value As Double,
+                            minimum As Double,
+                            maximum As Double)
+    Function GetCounterStatistic(counterId As String) As String
+    Function GetDimensionStatistic(dimensionId As String) As String
 End Interface

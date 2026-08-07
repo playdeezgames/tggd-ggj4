@@ -1,4 +1,2 @@
-﻿Imports Metaphor.Persistence
-Friend Delegate Sub ItemGenerator(inventory As IInventory)
-Friend Module InventoryExtensions
+﻿Friend Module InventoryExtensions
 End Module

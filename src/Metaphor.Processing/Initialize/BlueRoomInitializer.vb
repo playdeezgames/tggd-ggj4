@@ -1,6 +1,6 @@
 ﻿Imports Metaphor.Persistence
 
-Friend Module ShipInitializer
+Friend Module BlueRoomInitializer
     Friend Function Initialize(context As IInitializationContext) As Persistence.LocationInitializer
         Return Sub(ship)
                    ship.CreateCharacter(CharacterSubtypes.N00B, context.ChosenName, InitializeAvatar(context))

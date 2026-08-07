@@ -63,6 +63,30 @@ Friend MustInherit Class MetaphorEntity(Of TData As EntityData)
         World.AddMessage(text, hints)
     End Sub
 
+    Public Sub InitializeCounter(counterId As String, value As Integer, minimum As Integer, maximum As Integer) Implements IMetaphorEntity.InitializeCounter
+        SetCounterMaximum(counterId, maximum)
+        SetCounterMinimum(counterId, minimum)
+        SetCounter(counterId, value)
+    End Sub
+
+    Public Function GetCounterPercentage(counterId As String) As String Implements IMetaphorEntity.GetCounterPercentage
+        Return $"{100 * GetCounter(counterId) / GetCounterMaximum(counterId)}%"
+    End Function
+
+    Public Sub InitializeDimension(dimensionId As String, value As Double, minimum As Double, maximum As Double) Implements IMetaphorEntity.InitializeDimension
+        SetDimensionMaximum(dimensionId, maximum)
+        SetDimensionMinimum(dimensionId, minimum)
+        SetDimension(dimensionId, value)
+    End Sub
+
+    Public Function GetCounterStatistic(counterId As String) As String Implements IMetaphorEntity.GetCounterStatistic
+        Return $"{GetCounter(counterId)}/{GetCounterMaximum(counterId)}"
+    End Function
+
+    Public Function GetDimensionStatistic(dimensionId As String) As String Implements IMetaphorEntity.GetDimensionStatistic
+        Return $"{GetDimension(dimensionId):f2}/{GetDimensionMaximum(dimensionId):f2}"
+    End Function
+
     Public ReadOnly Property Inventory As IInventory Implements IMetaphorEntity.Inventory
         Get
             Dim inventoryId As Guid
