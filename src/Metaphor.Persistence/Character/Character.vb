@@ -28,10 +28,13 @@ Friend Class Character
         End Get
     End Property
 
-    Public ReadOnly Property Mode As String Implements ICharacter.Mode
+    Public Property DialogMode As String Implements ICharacter.DialogMode
         Get
-            Return TryGetMetadata(Metadatas.MODE)
+            Return TryGetMetadata(Metadatas.DIALOG_MODE)
         End Get
+        Set(value As String)
+            SetMetadata(Metadatas.DIALOG_MODE, value)
+        End Set
     End Property
 
     Protected Overrides ReadOnly Property Data As EntityData

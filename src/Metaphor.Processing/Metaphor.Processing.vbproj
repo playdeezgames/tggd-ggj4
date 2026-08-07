@@ -15,12 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Metaphor.Persistence\Metaphor.Persistence.vbproj" />
-    <ProjectReference Include="..\TGGD.Processing\TGGD.Processing.vbproj" />
+    <Compile Remove="Model\Characters\Character\Pace\**" />
+    <EmbeddedResource Remove="Model\Characters\Character\Pace\**" />
+    <None Remove="Model\Characters\Character\Pace\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\Characters\Character\Pace\" />
+    <ProjectReference Include="..\Metaphor.Persistence\Metaphor.Persistence.vbproj" />
+    <ProjectReference Include="..\TGGD.Processing\TGGD.Processing.vbproj" />
   </ItemGroup>
 
 </Project>

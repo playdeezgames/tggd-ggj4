@@ -7,5 +7,6 @@ Friend Module WorldInitializer
         world.Clear()
         world.CreateLocation(LocationSubtypes.BLUE_ROOM, "The Blue Room", BlueRoomInitializer.Initialize(context))
         world.AddMessage("It begins!")
+        world.Avatar.Look()
     End Sub
 End Module

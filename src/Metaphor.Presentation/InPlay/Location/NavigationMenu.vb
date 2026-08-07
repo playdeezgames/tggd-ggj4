@@ -18,7 +18,7 @@ Friend Class NavigationMenu
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
                 Concat(Model.Location.Verbs.Select(AddressOf ChooseLocationVerb)).
-                Concat(Model.Avatar.Verbs.Select(AddressOf ChooseAvatarVerb)).
+                Concat(Model.Avatar.AvailableVerbs.Select(AddressOf ChooseAvatarVerb)).
                 Append(AddressOf ChooseStatus).
                 Append(AddressOf ChooseGround).
                 Append(AddressOf ChooseInventory).

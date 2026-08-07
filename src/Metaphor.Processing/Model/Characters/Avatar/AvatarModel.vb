@@ -15,20 +15,26 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property Verbs As IEnumerable(Of IVerbModel) Implements IAvatarModel.Verbs
+    Public ReadOnly Property AvailableVerbs As IEnumerable(Of IVerbModel) Implements IAvatarModel.AvailableVerbs
         Get
             Return avatar.Verbs.Select(Function(x) CharacterVerbModel.Create(avatar, x))
         End Get
     End Property
 
-    Public ReadOnly Property Mode As String Implements IAvatarModel.Mode
+    Public ReadOnly Property DialogMode As String Implements IAvatarModel.DialogMode
         Get
-            Return avatar.Mode
+            Return avatar.DialogMode
         End Get
     End Property
 
     Public Sub ShowStatus() Implements IAvatarModel.ShowStatus
         avatar.World.ClearMessages()
+        avatar.ShowStatus()
+    End Sub
+
+    Public Sub Look() Implements IAvatarModel.Look
+        avatar.World.ClearMessages()
+        avatar.Look()
     End Sub
 
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel

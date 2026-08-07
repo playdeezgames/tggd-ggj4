@@ -26,7 +26,7 @@ Friend Class InPlay
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
         Dim launchDelgate As LaunchDelegate = Nothing
-        If modeLaunchers.TryGetValue(Model.Avatar.Mode, launchDelgate) Then
+        If modeLaunchers.TryGetValue(Model.Avatar.DialogMode, launchDelgate) Then
             Return launchDelgate.Invoke(Context, Model, Previous).Invoke.Run()
         End If
         Return NavigationMenu.Launch(Context, Model, Previous).Invoke().Run()

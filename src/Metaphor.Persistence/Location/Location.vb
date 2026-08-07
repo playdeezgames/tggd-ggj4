@@ -60,7 +60,7 @@ Friend Class Location
                 {
                     {Metadatas.ENTITY_SUBTYPE, entitySubtype},
                     {Metadatas.NAME, name},
-                    {Metadatas.MODE, String.Empty}
+                    {Metadatas.DIALOG_MODE, String.Empty}
                 }
             }
         AddToYokage(Yokages.CHARACTERS, characterId)
