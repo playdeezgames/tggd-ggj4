@@ -15,7 +15,7 @@ Friend Class CharacterModel
         End Get
     End Property
 
-    Public ReadOnly Property Verbs As IEnumerable(Of IVerbModel) Implements ICharacterModel.Verbs
+    Public ReadOnly Property AvailableVerbs As IEnumerable(Of IVerbModel) Implements ICharacterModel.AvailableVerbs
         Get
             Return character.Verbs.Select(Function(x) CharacterVerbModel.Create(character, x))
         End Get

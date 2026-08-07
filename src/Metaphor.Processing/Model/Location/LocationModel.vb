@@ -9,13 +9,13 @@ Friend Class LocationModel
         Me.location = location
     End Sub
 
-    Public ReadOnly Property Verbs As IEnumerable(Of IVerbModel) Implements ILocationModel.Verbs
+    Public ReadOnly Property AvailableVerbs As IEnumerable(Of IVerbModel) Implements ILocationModel.AvailableVerbs
         Get
             Return location.Verbs.Select(Function(x) LocationVerbModel.Create(location, x))
         End Get
     End Property
 
-    Public ReadOnly Property Others As IEnumerable(Of ICharacterModel) Implements ILocationModel.Others
+    Public ReadOnly Property OtherCharacters As IEnumerable(Of ICharacterModel) Implements ILocationModel.OtherCharacters
         Get
             Dim avatar = location.World.Avatar
             Return location.GetOtherCharacters(avatar).Select(AddressOf CharacterModel.Create)

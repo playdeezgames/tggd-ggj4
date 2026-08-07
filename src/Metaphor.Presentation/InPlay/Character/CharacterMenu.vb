@@ -22,7 +22,7 @@ Friend Class CharacterMenu
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
                 Append(AddressOf ChooseNeverMind).
-                Concat(characterModel.Verbs.Select(AddressOf ChooseCharacterVerb))
+                Concat(characterModel.AvailableVerbs.Select(AddressOf ChooseCharacterVerb))
         End Get
     End Property
 
