@@ -10,7 +10,7 @@ Public Class Title
     End Sub
 
     Public Overrides Function Run() As IDialogPrompt
-        Context.Render("TGGD-GGJ4", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.TITLE}})
+        Context.Render("Cake of SPLORR!!", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.TITLE}})
         Context.Render("A Production of ", newLine:=False)
         Context.Render("TheGrumpyGameDev", New Dictionary(Of String, String) From {{HintNames.ELEMENT_TYPE, ElementTypes.LINK}, {HintNames.URL, "https://thegrumpygamedev.itch.io/"}})
         Context.Render("Made for ", newLine:=False)

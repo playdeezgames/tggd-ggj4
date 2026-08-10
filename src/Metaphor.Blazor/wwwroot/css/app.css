@@ -1,7 +1,7 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #090040;
-    color: #FFCC00;
+    background-color: #FB9F9F;
+    color: #FF0065;
 }
 
 article{
@@ -18,8 +18,8 @@ article{
     border-radius: 12px;
     padding: 10px 20px;
     border: 1px solid #471396;
-    color: #FFCC00;
-    background-color: #090040;
+    color: #FF00A9;
+    background-color: #FB9F9F;
     margin-right: 15px;
     margin-bottom: 15px;
 }
@@ -27,9 +27,9 @@ article{
 input.valid {
     border-radius: 12px;
     padding: 10px 20px;
-    border: 1px solid #B13BFF;
-    color: #FFCC00;
-    background-color: #471396;
+    border: 1px solid #FF00a9;
+    color: #FB9F9F;
+    background-color: #FFBFd3;
 }
 
 h1:focus {
