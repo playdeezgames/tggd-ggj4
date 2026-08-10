@@ -6,7 +6,8 @@ Friend Module WorldInitializer
     Friend Sub Initialize(world As IWorld, context As IInitializationContext)
         world.Clear()
         world.CreateLocation(LocationSubtypes.BLUE_ROOM, "The Blue Room", BlueRoomInitializer.Initialize(context))
-        world.AddMessage("It begins!")
+        world.AddMessage("Welcome to Cake of SPLORR!!")
+        'TODO: describe what to do
         world.Avatar.Look()
     End Sub
 End Module

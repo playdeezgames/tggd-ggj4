@@ -32,7 +32,8 @@ Friend Class NavigationMenu
 
     Private Function ChooseFeature(featureModel As IFeatureModel) As LaunchDelegate
         Return Function(c, m, p)
-                   Return DialogChoice.CreateEnabled(
+                   Return DialogChoice.Create(
+                        featureModel.Enabled,
                         $"{featureModel.Name}...",
                         FeatureMenu.Launch(c, m, p, featureModel))
                End Function

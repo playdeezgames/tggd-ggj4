@@ -21,4 +21,6 @@ Public Interface IMetaphorEntity
                             maximum As Double)
     Function GetCounterStatistic(counterId As String) As String
     Function GetDimensionStatistic(dimensionId As String) As String
+    Function GetCounterCapacity(counterId As String) As Integer
+    Function GetDimensionCapacity(dimensionId As String) As Double
 End Interface

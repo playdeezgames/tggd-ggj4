@@ -33,6 +33,12 @@ Friend Class FeatureModel
         End Get
     End Property
 
+    Public ReadOnly Property Enabled As Boolean Implements IFeatureModel.Enabled
+        Get
+            Return Exists AndAlso Not feature.World.Avatar.IsDead
+        End Get
+    End Property
+
     Friend Shared Function Create(feature As IFeature) As IFeatureModel
         Return New FeatureModel(feature)
     End Function

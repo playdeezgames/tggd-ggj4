@@ -3,4 +3,5 @@
     ReadOnly Property Verbs As IEnumerable(Of IVerbModel)
     ReadOnly Property Exists As Boolean
     ReadOnly Property Inventory As IInventoryModel
+    ReadOnly Property Enabled As Boolean
 End Interface

@@ -87,6 +87,14 @@ Friend MustInherit Class MetaphorEntity(Of TData As EntityData)
         Return $"{GetDimension(dimensionId):f2}/{GetDimensionMaximum(dimensionId):f2}"
     End Function
 
+    Public Function GetCounterCapacity(counterId As String) As Integer Implements IMetaphorEntity.GetCounterCapacity
+        Return GetCounterMaximum(counterId) - GetCounter(counterId)
+    End Function
+
+    Public Function GetDimensionCapacity(dimensionId As String) As Double Implements IMetaphorEntity.GetDimensionCapacity
+        Return GetDimensionMaximum(dimensionId) - GetDimension(dimensionId)
+    End Function
+
     Public ReadOnly Property Inventory As IInventory Implements IMetaphorEntity.Inventory
         Get
             Dim inventoryId As Guid
