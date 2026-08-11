@@ -2,6 +2,24 @@
 Imports Metaphor.Persistence
 
 Friend Module ItemExtensions
+#Region "(Is) Empty"
+    <Extension>
+    Function IsEmpty(item As IItem) As Boolean
+        If item.EntitySubtype <> ItemSubtypes.MIXING_BOWL Then
+            Return False
+        End If
+        Return Not item.IsCounterMinimum(Counters.FLOUR) OrElse
+            Not item.IsCounterMinimum(Counters.SUGAR)
+    End Function
+    <Extension>
+    Sub Empty(item As IItem)
+        If item.EntitySubtype <> ItemSubtypes.MIXING_BOWL Then
+            Return
+        End If
+        item.MinimizeCounter(Counters.FLOUR)
+        item.MinimizeCounter(Counters.SUGAR)
+    End Sub
+#End Region
 #Region "Describe"
     Private Delegate Sub ItemDescriber(item As IItem)
     ReadOnly describeTable As New Dictionary(Of String, ItemDescriber) From

@@ -8,6 +8,13 @@ Friend Module BakeryInitializer
                    bakery.CreateFeature(FeatureSubtypes.DOOR, "Door to the Blue Room", InitializeBlueRoomDoor(context, blueRoom))
                    bakery.CreateFeature(FeatureSubtypes.CUPBOARD, "Cupboard", InitializeCupboard(context))
                    bakery.CreateFeature(FeatureSubtypes.DRY_PANTRY, "Dry Pantry", InitializeDryPantry(context))
+                   bakery.CreateFeature(FeatureSubtypes.BIN, "Bin", InitializeBin(context))
+               End Sub
+    End Function
+
+    Private Function InitializeBin(context As IInitializationContext) As FeatureInitializer
+        Return Sub(bin)
+                   bin.CreateVerb(VerbSubtypes.EMPTY_MIXING_BOWL, "Empty Mixing Bowl")
                End Sub
     End Function
 

@@ -258,4 +258,24 @@ Public MustInherit Class Entity(Of TData As EntityData)
     Public Function GetYokage(yokageId As String) As IEnumerable(Of Guid) Implements IEntity.GetYokage
         Return Yokages(yokageId)
     End Function
+
+    Public Function MinimizeCounter(counterId As String) As Integer Implements IEntity.MinimizeCounter
+        SetCounter(counterId, GetCounterMinimum(counterId))
+        Return GetCounter(counterId)
+    End Function
+
+    Public Function MaximumCounter(counterId As String) As Integer Implements IEntity.MaximumCounter
+        SetCounter(counterId, GetCounterMaximum(counterId))
+        Return GetCounter(counterId)
+    End Function
+
+    Public Function MinimizeDimension(dimensionId As String) As Double Implements IEntity.MinimizeDimension
+        SetDimension(dimensionId, GetDimensionMinimum(dimensionId))
+        Return GetDimension(dimensionId)
+    End Function
+
+    Public Function MaximizeDimension(dimensionId As String) As Double Implements IEntity.MaximizeDimension
+        SetDimension(dimensionId, GetDimensionMaximum(dimensionId))
+        Return GetDimension(dimensionId)
+    End Function
 End Class

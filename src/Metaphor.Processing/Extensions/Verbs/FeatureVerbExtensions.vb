@@ -10,8 +10,14 @@ Friend Module FeatureVerbExtensions
             {VerbSubtypes.ENTER, AddressOf CanEnter},
             {VerbSubtypes.SLEEP, AddressOf CanSleep},
             {VerbSubtypes.ADD_FLOUR, AddressOf CanAddFlour},
-            {VerbSubtypes.ADD_SUGAR, AddressOf CanAddSugar}
+            {VerbSubtypes.ADD_SUGAR, AddressOf CanAddSugar},
+            {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf CanEmptyMixingBowl}
         }
+
+    Private Function CanEmptyMixingBowl(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Dim mixingBowl = actor.Inventory.Items.FirstOrDefault(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
+        Return Not actor.IsDead AndAlso If(mixingBowl?.IsEmpty(), False)
+    End Function
 
     Private Function CanAddSugar(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Return Not actor.IsDead AndAlso
@@ -50,8 +56,15 @@ Friend Module FeatureVerbExtensions
             {VerbSubtypes.ENTER, AddressOf HandleEnter},
             {VerbSubtypes.SLEEP, AddressOf HandleSleep},
             {VerbSubtypes.ADD_FLOUR, AddressOf HandleAddFlour},
-            {VerbSubtypes.ADD_SUGAR, AddressOf HandleAddSugar}
+            {VerbSubtypes.ADD_SUGAR, AddressOf HandleAddSugar},
+            {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf HandleEmptyMixingBowl}
         }
+
+    Private Sub HandleEmptyMixingBowl(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim mixingBowl = actor.Inventory.Items.Single(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
+        mixingBowl.Empty()
+        actor.AddMessage($"{actor.Name} empties {mixingBowl.Name} into {feature.Name}.")
+    End Sub
 
     Private Sub HandleAddSugar(verb As IVerb, feature As IFeature, actor As ICharacter)
         Dim cup = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP)
