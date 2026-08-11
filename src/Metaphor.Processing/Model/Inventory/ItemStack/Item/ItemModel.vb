@@ -40,6 +40,7 @@ Friend Class ItemModel
     Public Sub Describe() Implements IItemModel.Describe
         Dim world = item.World
         world.ClearMessages()
+        item.Describe()
     End Sub
 
     Friend Shared Function Create(item As IItem) As IItemModel

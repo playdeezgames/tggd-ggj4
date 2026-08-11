@@ -14,7 +14,9 @@ Friend Module BakeryInitializer
     Private Function InitializeDryPantry(context As IInitializationContext) As FeatureInitializer
         Return Sub(pantry)
                    pantry.InitializeCounter(Counters.FLOUR, 50, 0, 100)
+                   pantry.InitializeCounter(Counters.SUGAR, 50, 0, 100)
                    pantry.CreateVerb(VerbSubtypes.ADD_FLOUR, "Add Flour")
+                   pantry.CreateVerb(VerbSubtypes.ADD_SUGAR, "Add Sugar")
                End Sub
     End Function
 

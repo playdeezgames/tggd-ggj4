@@ -9,6 +9,7 @@ Friend Module InventoryExtensions
     End Sub
     Private Sub InitializeMixingBowl(item As IItem)
         item.InitializeCounter(Counters.FLOUR, 0, 0, 5)
+        item.InitializeCounter(Counters.SUGAR, 0, 0, 5)
     End Sub
 #End Region
 #Region "Measuring Cup"
