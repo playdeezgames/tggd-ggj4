@@ -70,4 +70,8 @@ Friend Class Inventory
         initializer?.Invoke(result)
         Return result
     End Function
+
+    Public Function HasItemOfSubtype(entitySubtype As String) As Boolean Implements IInventory.HasItemOfSubtype
+        Return Items.Any(Function(x) x.EntitySubtype = entitySubtype)
+    End Function
 End Class

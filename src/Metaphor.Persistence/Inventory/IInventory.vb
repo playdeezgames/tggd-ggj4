@@ -4,4 +4,5 @@
     ReadOnly Property HasItems As Boolean
     ReadOnly Property Items As IEnumerable(Of IItem)
     ReadOnly Property ItemStacks As IEnumerable(Of IItemStack)
+    Function HasItemOfSubtype(entitySubtype As String) As Boolean
 End Interface

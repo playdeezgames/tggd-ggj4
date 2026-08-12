@@ -2,29 +2,49 @@
 Imports Metaphor.Persistence
 
 Friend Module ItemExtensions
-#Region "(Is) Empty"
+#Region "Mixing Bowl"
+    ReadOnly mixingbowlCounterTable As New Dictionary(Of String, String) From
+        {
+            {Counters.FLOUR, "Flour"},
+            {Counters.SUGAR, "Sugar"},
+            {Counters.VANILLA, "Vanilla"},
+            {Counters.BAKING_POWDER, "Baking Powder"},
+            {Counters.SALT, "Salt"}
+        }
+    <Extension>
+    Sub Mix(item As IItem)
+        If item.EntitySubtype <> ItemSubtypes.MIXING_BOWL Then
+            Return
+        End If
+        Dim tally As Integer = 0
+        For Each counterId In mixingbowlCounterTable.Keys
+            tally += item.GetCounter(counterId)
+            item.MinimizeCounter(counterId)
+        Next
+        item.ChangeDimension(Dimensions.BATTER, tally)
+    End Sub
     <Extension>
     Function IsEmpty(item As IItem) As Boolean
         If item.EntitySubtype <> ItemSubtypes.MIXING_BOWL Then
             Return False
         End If
-        Return Not item.IsCounterMinimum(Counters.FLOUR) OrElse
-            Not item.IsCounterMinimum(Counters.SUGAR)
+        Return mixingbowlCounterTable.Keys.All(AddressOf item.IsCounterMinimum)
     End Function
     <Extension>
     Sub Empty(item As IItem)
         If item.EntitySubtype <> ItemSubtypes.MIXING_BOWL Then
             Return
         End If
-        item.MinimizeCounter(Counters.FLOUR)
-        item.MinimizeCounter(Counters.SUGAR)
+        For Each counterId In mixingbowlCounterTable.Keys
+            item.MinimizeCounter(counterId)
+        Next
+        item.MinimizeDimension(Dimensions.BATTER)
     End Sub
 #End Region
 #Region "Describe"
     Private Delegate Sub ItemDescriber(item As IItem)
     ReadOnly describeTable As New Dictionary(Of String, ItemDescriber) From
         {
-            {ItemSubtypes.MEASURING_CUP, AddressOf DescribeMeasuringCup},
             {ItemSubtypes.MIXING_BOWL, AddressOf DescribeMixingBowl}
         }
     Private Sub DescribeItem(item As IItem)
@@ -32,17 +52,16 @@ Friend Module ItemExtensions
     End Sub
     Private Sub DescribeMixingBowl(item As IItem)
         DescribeItem(item)
-        Dim flour = item.GetCounter(Counters.FLOUR)
-        If flour > 0 Then
-            item.AddMessage($"Flour: {flour}")
+        For Each entry In mixingbowlCounterTable
+            Dim amount = item.GetCounter(entry.Key)
+            If amount > 0 Then
+                item.AddMessage($"{entry.Value}: {amount}")
+            End If
+        Next
+        If Not item.IsDimensionMinimum(Dimensions.BATTER) Then
+            Dim batter = item.GetDimension(Dimensions.BATTER)
+            item.AddMessage($"Batter: {batter:f2}")
         End If
-        Dim sugar = item.GetCounter(Counters.SUGAR)
-        If sugar > 0 Then
-            item.AddMessage($"Sugar: {sugar}")
-        End If
-    End Sub
-    Private Sub DescribeMeasuringCup(item As IItem)
-        DescribeItem(item)
     End Sub
     <Extension>
     Sub Describe(item As IItem)

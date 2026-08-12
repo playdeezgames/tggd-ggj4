@@ -10,15 +10,23 @@ Friend Module InventoryExtensions
     Private Sub InitializeMixingBowl(item As IItem)
         item.InitializeCounter(Counters.FLOUR, 0, 0, 5)
         item.InitializeCounter(Counters.SUGAR, 0, 0, 5)
+        item.InitializeCounter(Counters.BAKING_POWDER, 0, 0, 5)
+        item.InitializeCounter(Counters.SALT, 0, 0, 5)
+        item.InitializeCounter(Counters.VANILLA, 0, 0, 5)
+        item.CreateVerb(VerbSubtypes.MIX, "Mix")
+        item.InitializeDimension(Dimensions.BATTER, 0.0, 0.0, Double.MaxValue)
     End Sub
 #End Region
 #Region "Measuring Cup"
     <Extension>
     Sub CreateMeasuringCup(inventory As IInventory)
-        inventory.CreateItem(ItemSubtypes.MEASURING_CUP, "Measuring Cup", AddressOf InitializeMeasuringCup)
+        inventory.CreateItem(ItemSubtypes.MEASURING_CUP, "Measuring Cup")
     End Sub
-    Private Sub InitializeMeasuringCup(item As IItem)
-        'TODO: tags and stats
+#End Region
+#Region "Wooden Spoon"
+    <Extension>
+    Sub CreateWoodenSpoon(inventory As IInventory)
+        inventory.CreateItem(ItemSubtypes.WOODEN_SPOON, "Wooden Spoon")
     End Sub
 #End Region
 End Module

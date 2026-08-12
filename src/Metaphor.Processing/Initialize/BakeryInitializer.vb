@@ -22,8 +22,14 @@ Friend Module BakeryInitializer
         Return Sub(pantry)
                    pantry.InitializeCounter(Counters.FLOUR, 50, 0, 100)
                    pantry.InitializeCounter(Counters.SUGAR, 50, 0, 100)
+                   pantry.InitializeCounter(Counters.BAKING_POWDER, 25, 0, 50)
+                   pantry.InitializeCounter(Counters.VANILLA, 25, 0, 50)
+                   pantry.InitializeCounter(Counters.SALT, 250, 0, 500)
                    pantry.CreateVerb(VerbSubtypes.ADD_FLOUR, "Add Flour")
                    pantry.CreateVerb(VerbSubtypes.ADD_SUGAR, "Add Sugar")
+                   pantry.CreateVerb(VerbSubtypes.ADD_VANILLA, "Add Vanilla")
+                   pantry.CreateVerb(VerbSubtypes.ADD_SALT, "Add Salt")
+                   pantry.CreateVerb(VerbSubtypes.ADD_BAKING_POWDER, "Add Baking Powder")
                End Sub
     End Function
 
@@ -31,6 +37,7 @@ Friend Module BakeryInitializer
         Return Sub(cupboard)
                    cupboard.Inventory.CreateMixingBowl()
                    cupboard.Inventory.CreateMeasuringCup()
+                   cupboard.Inventory.CreateWoodenSpoon()
                End Sub
     End Function
 

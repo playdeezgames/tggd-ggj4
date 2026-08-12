@@ -9,28 +9,26 @@ Friend Module FeatureVerbExtensions
         {
             {VerbSubtypes.ENTER, AddressOf CanEnter},
             {VerbSubtypes.SLEEP, AddressOf CanSleep},
-            {VerbSubtypes.ADD_FLOUR, AddressOf CanAddFlour},
-            {VerbSubtypes.ADD_SUGAR, AddressOf CanAddSugar},
+            {VerbSubtypes.ADD_FLOUR, CanAddIngredient(Counters.FLOUR)},
+            {VerbSubtypes.ADD_SUGAR, CanAddIngredient(Counters.SUGAR)},
+            {VerbSubtypes.ADD_VANILLA, CanAddIngredient(Counters.VANILLA)},
+            {VerbSubtypes.ADD_BAKING_POWDER, CanAddIngredient(Counters.BAKING_POWDER)},
+            {VerbSubtypes.ADD_SALT, CanAddIngredient(Counters.SALT)},
             {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf CanEmptyMixingBowl}
         }
+
+    Private Function CanAddIngredient(counterId As String) As CanPerformHandler
+        Return Function(verb As IVerb, feature As IFeature, actor As ICharacter)
+                   Return Not actor.IsDead AndAlso
+                        Not feature.IsCounterMinimum(counterId) AndAlso
+                        actor.Inventory.Items.Any(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP) AndAlso
+                        actor.Inventory.Items.Any(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL AndAlso Not x.IsCounterMaximum(counterId))
+               End Function
+    End Function
 
     Private Function CanEmptyMixingBowl(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Dim mixingBowl = actor.Inventory.Items.FirstOrDefault(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
         Return Not actor.IsDead AndAlso If(mixingBowl?.IsEmpty(), False)
-    End Function
-
-    Private Function CanAddSugar(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return Not actor.IsDead AndAlso
-            Not feature.IsCounterMinimum(Counters.SUGAR) AndAlso
-            actor.Inventory.Items.Any(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP) AndAlso
-            actor.Inventory.Items.Any(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL AndAlso Not x.IsCounterMaximum(Counters.SUGAR))
-    End Function
-
-    Private Function CanAddFlour(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
-        Return Not actor.IsDead AndAlso
-            Not feature.IsCounterMinimum(Counters.FLOUR) AndAlso
-            actor.Inventory.Items.Any(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP) AndAlso
-            actor.Inventory.Items.Any(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL AndAlso Not x.IsCounterMaximum(Counters.FLOUR))
     End Function
 
     Private Function CanSleep(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
@@ -55,37 +53,31 @@ Friend Module FeatureVerbExtensions
         {
             {VerbSubtypes.ENTER, AddressOf HandleEnter},
             {VerbSubtypes.SLEEP, AddressOf HandleSleep},
-            {VerbSubtypes.ADD_FLOUR, AddressOf HandleAddFlour},
-            {VerbSubtypes.ADD_SUGAR, AddressOf HandleAddSugar},
+            {VerbSubtypes.ADD_FLOUR, HandleAddIngredient(Counters.FLOUR, "flour")},
+            {VerbSubtypes.ADD_SUGAR, HandleAddIngredient(Counters.SUGAR, "sugar")},
+            {VerbSubtypes.ADD_BAKING_POWDER, HandleAddIngredient(Counters.BAKING_POWDER, "baking powder")},
+            {VerbSubtypes.ADD_SALT, HandleAddIngredient(Counters.SALT, "salt")},
+            {VerbSubtypes.ADD_VANILLA, HandleAddIngredient(Counters.VANILLA, "vanilla")},
             {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf HandleEmptyMixingBowl}
         }
+
+    Private Function HandleAddIngredient(counterId As String, counterName As String) As PerformHandler
+        Return Sub(verb As IVerb, feature As IFeature, actor As ICharacter)
+                   Dim cup = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP)
+                   Dim bowl = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
+                   actor.AddMessage($"{actor.Name} uses {cup.Name} to move 1 {counterName} from {feature.Name} to {bowl.Name}.")
+                   feature.ChangeCounter(counterId, -1)
+                   actor.AddMessage($"{feature.Name} now has {feature.GetCounter(counterId)} {counterName}.")
+                   bowl.ChangeCounter(counterId, 1)
+                   actor.AddMessage($"{bowl.Name} now has {bowl.GetCounter(counterId)} {counterName}.")
+               End Sub
+    End Function
 
     Private Sub HandleEmptyMixingBowl(verb As IVerb, feature As IFeature, actor As ICharacter)
         Dim mixingBowl = actor.Inventory.Items.Single(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
         mixingBowl.Empty()
         actor.AddMessage($"{actor.Name} empties {mixingBowl.Name} into {feature.Name}.")
     End Sub
-
-    Private Sub HandleAddSugar(verb As IVerb, feature As IFeature, actor As ICharacter)
-        Dim cup = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP)
-        Dim bowl = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
-        actor.AddMessage($"{actor.Name} uses {cup.Name} to move 1 sugar from {feature.Name} to {bowl.Name}.")
-        feature.ChangeCounter(Counters.SUGAR, -1)
-        actor.AddMessage($"{feature.Name} now has {feature.GetCounter(Counters.SUGAR)} sugar.")
-        bowl.ChangeCounter(Counters.SUGAR, 1)
-        actor.AddMessage($"{bowl.Name} now has {bowl.GetCounter(Counters.SUGAR)} sugar.")
-    End Sub
-
-    Private Sub HandleAddFlour(verb As IVerb, feature As IFeature, actor As ICharacter)
-        Dim cup = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MEASURING_CUP)
-        Dim bowl = actor.Inventory.Items.First(Function(x) x.EntitySubtype = ItemSubtypes.MIXING_BOWL)
-        actor.AddMessage($"{actor.Name} uses {cup.Name} to move 1 flour from {feature.Name} to {bowl.Name}.")
-        feature.ChangeCounter(Counters.FLOUR, -1)
-        actor.AddMessage($"{feature.Name} now has {feature.GetCounter(Counters.FLOUR)} flour.")
-        bowl.ChangeCounter(Counters.FLOUR, 1)
-        actor.AddMessage($"{bowl.Name} now has {bowl.GetCounter(Counters.FLOUR)} flour.")
-    End Sub
-
     Private Sub HandleSleep(verb As IVerb, feature As IFeature, actor As ICharacter)
         actor.AddMessage($"{actor.Name} sleeps.")
         Dim energy = actor.GetCounterCapacity(Counters.ENERGY)

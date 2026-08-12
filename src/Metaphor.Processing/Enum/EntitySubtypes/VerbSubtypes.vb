@@ -1,7 +1,11 @@
 ﻿Friend Module VerbSubtypes
+    Friend Const ADD_BAKING_POWDER As String = NameOf(ADD_BAKING_POWDER)
     Friend Const ADD_FLOUR As String = NameOf(ADD_FLOUR)
+    Friend Const ADD_SALT As String = NameOf(ADD_SALT)
     Friend Const ADD_SUGAR As String = NameOf(ADD_SUGAR)
+    Friend Const ADD_VANILLA As String = NameOf(ADD_VANILLA)
     Friend Const EMPTY_MIXING_BOWL As String = NameOf(EMPTY_MIXING_BOWL)
     Friend Const ENTER As String = NameOf(ENTER)
+    Friend Const MIX As String = NameOf(MIX)
     Friend Const SLEEP As String = NameOf(SLEEP)
 End Module
