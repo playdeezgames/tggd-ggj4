@@ -9,7 +9,10 @@ Friend Module ItemExtensions
             {Counters.SUGAR, "Sugar"},
             {Counters.VANILLA, "Vanilla"},
             {Counters.BAKING_POWDER, "Baking Powder"},
-            {Counters.SALT, "Salt"}
+            {Counters.SALT, "Salt"},
+            {Counters.EGG, "Eggs"},
+            {Counters.BUTTER, "Butter"},
+            {Counters.MILK, "Milk"}
         }
     <Extension>
     Sub Mix(item As IItem)
@@ -23,6 +26,10 @@ Friend Module ItemExtensions
         Next
         item.ChangeDimension(Dimensions.BATTER, tally)
     End Sub
+    <Extension>
+    Function HasBatter(item As IItem) As Boolean
+        Return item.HasDimension(Dimensions.BATTER) AndAlso Not item.IsDimensionMinimum(Dimensions.BATTER)
+    End Function
     <Extension>
     Function IsEmpty(item As IItem) As Boolean
         If item.EntitySubtype <> ItemSubtypes.MIXING_BOWL Then
@@ -45,8 +52,15 @@ Friend Module ItemExtensions
     Private Delegate Sub ItemDescriber(item As IItem)
     ReadOnly describeTable As New Dictionary(Of String, ItemDescriber) From
         {
-            {ItemSubtypes.MIXING_BOWL, AddressOf DescribeMixingBowl}
+            {ItemSubtypes.MIXING_BOWL, AddressOf DescribeMixingBowl},
+            {ItemSubtypes.CAKE_PAN, AddressOf DescribeCakePan}
         }
+
+    Private Sub DescribeCakePan(item As IItem)
+        DescribeItem(item)
+        DescribeItemBatter(item)
+    End Sub
+
     Private Sub DescribeItem(item As IItem)
         item.AddMessage($"It is a {item.Name}.")
     End Sub
@@ -58,11 +72,16 @@ Friend Module ItemExtensions
                 item.AddMessage($"{entry.Value}: {amount}")
             End If
         Next
+        DescribeItemBatter(item)
+    End Sub
+
+    Private Sub DescribeItemBatter(item As IItem)
         If Not item.IsDimensionMinimum(Dimensions.BATTER) Then
             Dim batter = item.GetDimension(Dimensions.BATTER)
             item.AddMessage($"Batter: {batter:f2}")
         End If
     End Sub
+
     <Extension>
     Sub Describe(item As IItem)
         Dim describer As ItemDescriber = Nothing

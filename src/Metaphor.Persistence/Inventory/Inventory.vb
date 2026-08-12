@@ -74,4 +74,8 @@ Friend Class Inventory
     Public Function HasItemOfSubtype(entitySubtype As String) As Boolean Implements IInventory.HasItemOfSubtype
         Return Items.Any(Function(x) x.EntitySubtype = entitySubtype)
     End Function
+
+    Public Function GetItemsOfSubtype(entitySubtype As String) As IEnumerable(Of IItem) Implements IInventory.GetItemsOfSubtype
+        Return Items.Where(Function(x) x.EntitySubtype = entitySubtype)
+    End Function
 End Class

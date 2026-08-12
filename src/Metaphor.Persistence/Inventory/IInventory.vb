@@ -5,4 +5,5 @@
     ReadOnly Property Items As IEnumerable(Of IItem)
     ReadOnly Property ItemStacks As IEnumerable(Of IItemStack)
     Function HasItemOfSubtype(entitySubtype As String) As Boolean
+    Function GetItemsOfSubtype(entitySubtype As String) As IEnumerable(Of IItem)
 End Interface

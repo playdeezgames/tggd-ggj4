@@ -7,8 +7,16 @@ Friend Module ItemVerbExtensions
 #Region "Can Perform"
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
-            {VerbSubtypes.MIX, AddressOf CanMix}
+            {VerbSubtypes.MIX, AddressOf CanMix},
+            {VerbSubtypes.POUR_BATTER, AddressOf CanPourBatter}
         }
+
+    Private Function CanPourBatter(verb As IVerb, item As IItem, actor As ICharacter) As Boolean
+        Dim mixingBowl = actor.Inventory.GetItemsOfSubtype(ItemSubtypes.MIXING_BOWL).Single()
+        Return item.EntitySubtype = ItemSubtypes.CAKE_PAN AndAlso
+            mixingBowl IsNot Nothing AndAlso
+            mixingBowl.HasBatter()
+    End Function
 
     Private Function CanMix(verb As IVerb, item As IItem, actor As ICharacter) As Boolean
         Return item.EntitySubtype = ItemSubtypes.MIXING_BOWL AndAlso
@@ -28,8 +36,17 @@ Friend Module ItemVerbExtensions
 #Region "Perform"
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
-            {VerbSubtypes.MIX, AddressOf HandleMix}
+            {VerbSubtypes.MIX, AddressOf HandleMix},
+            {VerbSubtypes.POUR_BATTER, AddressOf HandlePourBatter}
         }
+
+    Private Sub HandlePourBatter(verb As IVerb, item As IItem, actor As ICharacter)
+        Dim mixingBowl = actor.Inventory.GetItemsOfSubtype(ItemSubtypes.MIXING_BOWL).Single()
+        Dim batter = mixingBowl.GetDimension(Dimensions.BATTER)
+        actor.AddMessage($"{actor.Name} pours {batter:f2} batter from {mixingBowl.Name} to {item.Name}.")
+        mixingBowl.ChangeDimension(Dimensions.BATTER, -batter)
+        item.ChangeDimension(Dimensions.BATTER, batter)
+    End Sub
 
     Private Sub HandleMix(verb As IVerb, item As IItem, actor As ICharacter)
         actor.AddMessage($"{actor.Name} mixes the ingredients in {item.Name}.")

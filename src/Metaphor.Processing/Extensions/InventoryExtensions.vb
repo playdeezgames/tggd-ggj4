@@ -13,6 +13,9 @@ Friend Module InventoryExtensions
         item.InitializeCounter(Counters.BAKING_POWDER, 0, 0, 5)
         item.InitializeCounter(Counters.SALT, 0, 0, 5)
         item.InitializeCounter(Counters.VANILLA, 0, 0, 5)
+        item.InitializeCounter(Counters.BUTTER, 0, 0, 5)
+        item.InitializeCounter(Counters.MILK, 0, 0, 5)
+        item.InitializeCounter(Counters.EGG, 0, 0, 5)
         item.CreateVerb(VerbSubtypes.MIX, "Mix")
         item.InitializeDimension(Dimensions.BATTER, 0.0, 0.0, Double.MaxValue)
     End Sub
@@ -23,10 +26,26 @@ Friend Module InventoryExtensions
         inventory.CreateItem(ItemSubtypes.MEASURING_CUP, "Measuring Cup")
     End Sub
 #End Region
+#Region "Measuring Spoons"
+    <Extension>
+    Sub CreateMeasuringSpoons(inventory As IInventory)
+        inventory.CreateItem(ItemSubtypes.MEASURING_SPOONS, "Measuring Spoons")
+    End Sub
+#End Region
 #Region "Wooden Spoon"
     <Extension>
     Sub CreateWoodenSpoon(inventory As IInventory)
         inventory.CreateItem(ItemSubtypes.WOODEN_SPOON, "Wooden Spoon")
+    End Sub
+#End Region
+#Region "Cake Pan"
+    <Extension>
+    Sub CreateCakePan(inventory As IInventory)
+        inventory.CreateItem(ItemSubtypes.CAKE_PAN, "Cake Pan", AddressOf InitializeCakePan)
+    End Sub
+    Private Sub InitializeCakePan(item As IItem)
+        item.InitializeDimension(Dimensions.BATTER, 0.0, 0.0, Double.MaxValue)
+        item.CreateVerb(VerbSubtypes.POUR_BATTER, "Pour Batter")
     End Sub
 #End Region
 End Module

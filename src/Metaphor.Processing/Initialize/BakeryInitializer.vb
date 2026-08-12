@@ -9,6 +9,18 @@ Friend Module BakeryInitializer
                    bakery.CreateFeature(FeatureSubtypes.CUPBOARD, "Cupboard", InitializeCupboard(context))
                    bakery.CreateFeature(FeatureSubtypes.DRY_PANTRY, "Dry Pantry", InitializeDryPantry(context))
                    bakery.CreateFeature(FeatureSubtypes.BIN, "Bin", InitializeBin(context))
+                   bakery.CreateFeature(FeatureSubtypes.REFRIGERATOR, "Refrigerator", InitializeRefrigerator(context))
+               End Sub
+    End Function
+
+    Private Function InitializeRefrigerator(context As IInitializationContext) As FeatureInitializer
+        Return Sub(refrigerator)
+                   refrigerator.InitializeCounter(Counters.EGG, 30, 0, 60)
+                   refrigerator.InitializeCounter(Counters.MILK, 50, 0, 100)
+                   refrigerator.InitializeCounter(Counters.BUTTER, 25, 0, 50)
+                   refrigerator.CreateVerb(VerbSubtypes.ADD_EGG, "Add Egg")
+                   refrigerator.CreateVerb(VerbSubtypes.ADD_BUTTER, "Add Butter")
+                   refrigerator.CreateVerb(VerbSubtypes.ADD_MILK, "Add Milk")
                End Sub
     End Function
 
@@ -37,7 +49,9 @@ Friend Module BakeryInitializer
         Return Sub(cupboard)
                    cupboard.Inventory.CreateMixingBowl()
                    cupboard.Inventory.CreateMeasuringCup()
+                   cupboard.Inventory.CreateMeasuringSpoons()
                    cupboard.Inventory.CreateWoodenSpoon()
+                   cupboard.Inventory.CreateCakePan()
                End Sub
     End Function
 
