@@ -2,9 +2,9 @@
 Imports Metaphor.Extensions
 Imports Metaphor.Persistence
 
-Friend Module WorldInitializer
+Public Module WorldInitializer
     <Extension>
-    Friend Sub Initialize(world As IWorld, context As IInitializationContext)
+    Public Sub Initialize(world As IWorld, context As IInitializationContext)
         world.Clear()
         world.CreateLocation(LocationSubtypes.BLUE_ROOM, "The Blue Room", BlueRoomInitializer.Initialize(context))
         world.AddMessage("Welcome to Cake of SPLORR!!")
