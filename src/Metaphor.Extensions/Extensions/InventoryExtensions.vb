@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Metaphor.Persistence
 
-Friend Module InventoryExtensions
+Public Module InventoryExtensions
 #Region "Mixing Bowl"
     <Extension>
     Sub CreateMixingBowl(inventory As IInventory)

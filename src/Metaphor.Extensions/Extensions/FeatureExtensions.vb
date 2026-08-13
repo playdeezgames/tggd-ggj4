@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Metaphor.Persistence
 
-Friend Module FeatureExtensions
+Public Module FeatureExtensions
 #Region "Describe"
     Private Sub DescribeFeature(feature As IFeature)
         feature.AddMessage($"It is a {feature.Name}.")
@@ -27,7 +27,7 @@ Friend Module FeatureExtensions
     End Sub
 
     <Extension>
-    Friend Sub Describe(feature As IFeature)
+    Public Sub Describe(feature As IFeature)
         Dim describer As FeatureDescriber = Nothing
         If featureDescribers.TryGetValue(feature.EntitySubtype, describer) Then
             describer.Invoke(feature)
@@ -38,21 +38,21 @@ Friend Module FeatureExtensions
 #End Region
 #Region "Destination"
     <Extension>
-    Friend Sub SetDestination(feature As IFeature, destination As ILocation)
+    Public Sub SetDestination(feature As IFeature, destination As ILocation)
         feature.SetYoke(Yokes.DESTINATION, destination.EntityId)
     End Sub
     <Extension>
-    Friend Function GetDestination(feature As IFeature) As ILocation
+    Public Function GetDestination(feature As IFeature) As ILocation
         Return feature.World.GetLocation(feature.GetYoke(Yokes.DESTINATION))
     End Function
 #End Region
 #Region "Verbs"
     <Extension>
-    Friend Sub CreateEnterVerb(feature As IFeature)
+    Public Sub CreateEnterVerb(feature As IFeature)
         feature.CreateVerb(VerbSubtypes.ENTER, "Enter")
     End Sub
     <Extension>
-    Friend Sub CreateSleepVerb(feature As IFeature)
+    Public Sub CreateSleepVerb(feature As IFeature)
         feature.CreateVerb(VerbSubtypes.SLEEP, "Sleep")
     End Sub
 #End Region

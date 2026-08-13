@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Metaphor.Persistence
 
-Friend Module ItemExtensions
+Public Module ItemExtensions
 #Region "Mixing Bowl"
     ReadOnly mixingbowlCounterTable As New Dictionary(Of String, String) From
         {

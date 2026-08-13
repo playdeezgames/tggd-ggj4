@@ -1,4 +1,5 @@
-﻿Imports Metaphor.Persistence
+﻿Imports Metaphor.Extensions
+Imports Metaphor.Persistence
 
 Friend Class ItemVerbModel
     Implements IVerbModel

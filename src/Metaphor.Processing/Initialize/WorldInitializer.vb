@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports Metaphor.Extensions
 Imports Metaphor.Persistence
 
 Friend Module WorldInitializer

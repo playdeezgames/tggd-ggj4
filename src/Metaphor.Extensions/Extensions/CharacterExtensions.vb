@@ -1,10 +1,10 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Metaphor.Persistence
 
-Friend Module CharacterExtensions
+Public Module CharacterExtensions
 #Region "Show Status"
     <Extension>
-    Friend Sub ShowStatus(character As ICharacter)
+    Public Sub ShowStatus(character As ICharacter)
         character.AddMessage($"Status:")
         character.AddMessage($"Health: {character.GetCounterStatistic(Counters.HEALTH)}")
         character.AddMessage($"Energy: {character.GetCounterStatistic(Counters.ENERGY)}")
@@ -12,7 +12,7 @@ Friend Module CharacterExtensions
 #End Region
 #Region "Look"
     <Extension>
-    Friend Sub Look(character As ICharacter)
+    Public Sub Look(character As ICharacter)
         If character.IsDead Then
             character.AddMessage($"{character.Name} is dead.")
             Return
@@ -33,11 +33,11 @@ Friend Module CharacterExtensions
 #End Region
 #Region "Biology"
     <Extension>
-    Friend Function IsDead(character As ICharacter) As Boolean
+    Public Function IsDead(character As ICharacter) As Boolean
         Return character.IsCounterMinimum(Counters.HEALTH)
     End Function
     <Extension>
-    Friend Sub DoBiology(character As ICharacter, Optional amount As Integer = 1)
+    Public Sub DoBiology(character As ICharacter, Optional amount As Integer = 1)
         If character.IsDead() OrElse amount <= 0 Then
             Return
         End If

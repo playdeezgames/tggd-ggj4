@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Metaphor.Persistence
 
-Friend Module ItemVerbExtensions
+Public Module ItemVerbExtensions
     Private Delegate Function CanPerformHandler(verb As IVerb, item As IItem, actor As ICharacter) As Boolean
     Private Delegate Sub PerformHandler(verb As IVerb, item As IItem, actor As ICharacter)
 #Region "Can Perform"
@@ -25,7 +25,7 @@ Friend Module ItemVerbExtensions
     End Function
 
     <Extension>
-    Friend Function CanPerform(verb As IVerb, item As IItem, actor As ICharacter) As Boolean
+    Public Function CanPerform(verb As IVerb, item As IItem, actor As ICharacter) As Boolean
         Dim handler As CanPerformHandler = Nothing
         If canPerformTable.TryGetValue(verb.EntitySubtype, handler) Then
             Return handler.Invoke(verb, item, actor)
