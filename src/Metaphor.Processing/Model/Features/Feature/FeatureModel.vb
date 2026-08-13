@@ -39,6 +39,11 @@ Friend Class FeatureModel
         End Get
     End Property
 
+    Public Sub Describe() Implements IFeatureModel.Describe
+        feature.World.ClearMessages()
+        feature.Describe()
+    End Sub
+
     Friend Shared Function Create(feature As IFeature) As IFeatureModel
         Return New FeatureModel(feature)
     End Function

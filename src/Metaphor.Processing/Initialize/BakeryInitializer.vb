@@ -10,6 +10,20 @@ Friend Module BakeryInitializer
                    bakery.CreateFeature(FeatureSubtypes.DRY_PANTRY, "Dry Pantry", InitializeDryPantry(context))
                    bakery.CreateFeature(FeatureSubtypes.BIN, "Bin", InitializeBin(context))
                    bakery.CreateFeature(FeatureSubtypes.REFRIGERATOR, "Refrigerator", InitializeRefrigerator(context))
+                   bakery.CreateFeature(FeatureSubtypes.OVEN, "Oven", InitializeOven(context))
+               End Sub
+    End Function
+
+    Private Function InitializeOven(context As IInitializationContext) As FeatureInitializer
+        Return Sub(oven)
+                   oven.CreateVerb(VerbSubtypes.TURN_ON, "Turn On")
+                   oven.CreateVerb(VerbSubtypes.TURN_OFF, "Turn Off")
+                   oven.CreateVerb(VerbSubtypes.OPEN_DOOR, "Open Door")
+                   oven.CreateVerb(VerbSubtypes.CLOSE_DOOR, "Close Door")
+                   oven.CreateVerb(VerbSubtypes.PUT_CAKE_PAN_IN, "Put Cake Pan In")
+                   oven.CreateVerb(VerbSubtypes.TAKE_CAKE_PAN_OUT, "Take Cake Pan Out")
+                   oven.CreateVerb(VerbSubtypes.BAKE_CAKE, "Bake Cake")
+                   oven.SetTag(Tags.SUPPRESS_ITEMS)
                End Sub
     End Function
 

@@ -59,6 +59,9 @@ Friend Module ItemExtensions
     Private Sub DescribeCakePan(item As IItem)
         DescribeItem(item)
         DescribeItemBatter(item)
+        If item.HasTag(Tags.CAKE) Then
+            item.AddMessage($"{item.Name} contains a cake.")
+        End If
     End Sub
 
     Private Sub DescribeItem(item As IItem)

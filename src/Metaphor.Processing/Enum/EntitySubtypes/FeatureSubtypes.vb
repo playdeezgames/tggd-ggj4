@@ -4,5 +4,6 @@
     Friend Const CUPBOARD As String = NameOf(CUPBOARD)
     Friend Const DOOR As String = NameOf(DOOR)
     Friend Const DRY_PANTRY As String = NameOf(DRY_PANTRY)
+    Friend Const OVEN As String = NameOf(OVEN)
     Friend Const REFRIGERATOR As String = NameOf(REFRIGERATOR)
 End Module

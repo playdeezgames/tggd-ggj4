@@ -17,8 +17,52 @@ Friend Module FeatureVerbExtensions
             {VerbSubtypes.ADD_MILK, CanAddIngredient(Counters.MILK, True, False)},
             {VerbSubtypes.ADD_BAKING_POWDER, CanAddIngredient(Counters.BAKING_POWDER, False, True)},
             {VerbSubtypes.ADD_SALT, CanAddIngredient(Counters.SALT, False, True)},
-            {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf CanEmptyMixingBowl}
+            {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf CanEmptyMixingBowl},
+            {VerbSubtypes.TURN_ON, AddressOf CanTurnOn},
+            {VerbSubtypes.TURN_OFF, AddressOf CanTurnOff},
+            {VerbSubtypes.OPEN_DOOR, AddressOf CanOpenDoor},
+            {VerbSubtypes.BAKE_CAKE, AddressOf CanBakeCake},
+            {VerbSubtypes.PUT_CAKE_PAN_IN, AddressOf CanPutCakePanIn},
+            {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf CanTakeCakePanOut},
+            {VerbSubtypes.CLOSE_DOOR, AddressOf CanCloseDoor}
         }
+
+    Private Function CanTakeCakePanOut(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
+            feature.HasTag(Tags.OPEN) AndAlso
+            feature.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN)
+    End Function
+
+    Private Function CanPutCakePanIn(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
+            feature.HasTag(Tags.OPEN) AndAlso
+            Not feature.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN) AndAlso
+            actor.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN)
+    End Function
+
+    Private Function CanBakeCake(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
+            feature.HasTag(Tags.ON) AndAlso
+            Not feature.HasTag(Tags.OPEN) AndAlso
+            feature.Inventory.HasItemOfSubtype(ItemSubtypes.CAKE_PAN) AndAlso
+            Not feature.Inventory.GetItemsOfSubtype(ItemSubtypes.CAKE_PAN).Any(Function(x) x.IsDimensionMinimum(Dimensions.BATTER))
+    End Function
+
+    Private Function CanCloseDoor(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso feature.HasTag(Tags.OPEN)
+    End Function
+
+    Private Function CanOpenDoor(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso Not feature.HasTag(Tags.OPEN)
+    End Function
+
+    Private Function CanTurnOff(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso feature.HasTag(Tags.[ON])
+    End Function
+
+    Private Function CanTurnOn(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso Not feature.HasTag(Tags.[ON])
+    End Function
 
     Private Function CanAddIngredient(counterId As String, needsMeasuringCup As Boolean, needsMeasuringSpoons As Boolean) As CanPerformHandler
         Return Function(verb As IVerb, feature As IFeature, actor As ICharacter)
@@ -65,8 +109,51 @@ Friend Module FeatureVerbExtensions
             {VerbSubtypes.ADD_EGG, HandleAddIngredient(Counters.EGG, "egg")},
             {VerbSubtypes.ADD_MILK, HandleAddIngredient(Counters.MILK, "milk")},
             {VerbSubtypes.ADD_VANILLA, HandleAddIngredient(Counters.VANILLA, "vanilla")},
-            {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf HandleEmptyMixingBowl}
+            {VerbSubtypes.EMPTY_MIXING_BOWL, AddressOf HandleEmptyMixingBowl},
+            {VerbSubtypes.TURN_ON, AddressOf HandleTurnOn},
+            {VerbSubtypes.TURN_OFF, AddressOf HandleTurnOff},
+            {VerbSubtypes.OPEN_DOOR, AddressOf HandleOpenDoor},
+            {VerbSubtypes.PUT_CAKE_PAN_IN, AddressOf HandlePutCakePanIn},
+            {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf HandleTakeCakePanOut},
+            {VerbSubtypes.BAKE_CAKE, AddressOf HandleBakeCake},
+            {VerbSubtypes.CLOSE_DOOR, AddressOf HandleCloseDoor}
         }
+
+    Private Sub HandleBakeCake(verb As IVerb, feature As IFeature, actor As ICharacter)
+        actor.AddMessage($"{actor.Name} waits until the cake is done.")
+        actor.DoBiology(1)
+        Dim cakePan = feature.Inventory.GetItemsOfSubtype(ItemSubtypes.CAKE_PAN).Single()
+        cakePan.MinimizeDimension(Dimensions.BATTER)
+        cakePan.SetTag(Tags.CAKE)
+    End Sub
+
+    Private Sub HandleTakeCakePanOut(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cakePan = feature.Inventory.GetItemsOfSubtype(ItemSubtypes.CAKE_PAN).First
+        actor.AddMessage($"{actor.Name} takes {cakePan.Name} from {feature.Name}.")
+        cakePan.Container = actor.Inventory
+    End Sub
+
+    Private Sub HandlePutCakePanIn(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim cakePan = actor.Inventory.GetItemsOfSubtype(ItemSubtypes.CAKE_PAN).First
+        actor.AddMessage($"{actor.Name} puts {cakePan.Name} into {feature.Name}.")
+        cakePan.Container = feature.Inventory
+    End Sub
+
+    Private Sub HandleCloseDoor(verb As IVerb, feature As IFeature, actor As ICharacter)
+        feature.ClearTag(Tags.OPEN)
+    End Sub
+
+    Private Sub HandleOpenDoor(verb As IVerb, feature As IFeature, actor As ICharacter)
+        feature.SetTag(Tags.OPEN)
+    End Sub
+
+    Private Sub HandleTurnOff(verb As IVerb, feature As IFeature, actor As ICharacter)
+        feature.ClearTag(Tags.ON)
+    End Sub
+
+    Private Sub HandleTurnOn(verb As IVerb, feature As IFeature, actor As ICharacter)
+        feature.SetTag(Tags.ON)
+    End Sub
 
     Private Function HandleAddIngredient(counterId As String, counterName As String) As PerformHandler
         Return Sub(verb As IVerb, feature As IFeature, actor As ICharacter)

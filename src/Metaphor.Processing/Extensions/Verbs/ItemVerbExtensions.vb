@@ -51,6 +51,7 @@ Friend Module ItemVerbExtensions
     Private Sub HandleMix(verb As IVerb, item As IItem, actor As ICharacter)
         actor.AddMessage($"{actor.Name} mixes the ingredients in {item.Name}.")
         item.Mix()
+        actor.DoBiology(1)
     End Sub
 
     <Extension>
