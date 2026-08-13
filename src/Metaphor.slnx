@@ -16,8 +16,8 @@
     <Project Path="TGGD.Initializers/TGGD.Initializers.vbproj" Id="59aee38b-5e3d-44a8-b7a1-7f4983a8a639" />
   </Folder>
   <Folder Name="/05_Models/">
-    <Project Path="Metaphor.Processing/Metaphor.Processing.vbproj" Id="97cf0694-bd04-4e2c-bf1e-80fa4e4a29a1" />
-    <Project Path="TGGD.Processing/TGGD.Processing.vbproj" Id="83b62062-917b-4da5-b1c7-0aeaae17254d" />
+    <Project Path="Metaphor.Models/Metaphor.Models.vbproj" />
+    <Project Path="TGGD.Models/TGGD.Models.vbproj" />
   </Folder>
   <Folder Name="/06_Presentation/">
     <Project Path="Metaphor.Presentation/Metaphor.Presentation.vbproj" Id="bf0676b0-d0ca-4331-96a1-7d893a6ac976" />

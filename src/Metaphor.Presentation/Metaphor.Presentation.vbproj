@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Metaphor.Processing\Metaphor.Processing.vbproj" />
+    <ProjectReference Include="..\Metaphor.Models\Metaphor.Models.vbproj" />
     <ProjectReference Include="..\TGGD.Presentation\TGGD.Presentation.vbproj" />
   </ItemGroup>
 
