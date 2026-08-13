@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Metaphor.Persistence\Metaphor.Persistence.vbproj" />
+    <ProjectReference Include="..\Metaphor.Initializers\Metaphor.Initializers.vbproj" />
     <ProjectReference Include="..\TGGD.Processing\TGGD.Processing.vbproj" />
   </ItemGroup>
 
