@@ -4,7 +4,7 @@ Imports Metaphor.Persistence
 Friend Module BlueRoomInitializer
     Friend Function Initialize(context As IInitializationContext) As Persistence.LocationInitializer
         Return Sub(room)
-                   room.CreateCharacter(CharacterSubtypes.N00B, context.ChosenName, InitializeAvatar(context))
+                   room.CreateN00b(context.ChosenName, InitializeAvatar(context))
                    room.CreateFeature(FeatureSubtypes.DOOR, "Door to Bakery", InitializeBakeryDoor(context))
                    room.CreateFeature(FeatureSubtypes.BED, "Yer Bed", InitializeBed(context))
                End Sub
