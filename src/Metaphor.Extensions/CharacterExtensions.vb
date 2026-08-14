@@ -8,6 +8,7 @@ Public Module CharacterExtensions
         character.AddMessage($"Status:")
         character.AddMessage($"Health: {character.GetCounterStatistic(Counters.HEALTH)}")
         character.AddMessage($"Energy: {character.GetCounterStatistic(Counters.ENERGY)}")
+        character.AddMessage($"Jools: {character.GetDimension(Dimensions.JOOLS):F2}")
     End Sub
 #End Region
 #Region "Look"

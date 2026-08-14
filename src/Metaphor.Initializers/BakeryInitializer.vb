@@ -27,6 +27,8 @@ Friend Module BakeryInitializer
     Private Function InitializeCakeboard(context As IInitializationContext) As ItemInitializer
         Return Sub(cakeBoard)
                    cakeBoard.InitializeCounter(Counters.LAYERS, 0, 0, 5)
+                   cakeBoard.CreateVerb(VerbSubtypes.UNMOLD_CAKE, "Unmold Cake")
+                   cakeBoard.CreateVerb(VerbSubtypes.SELL_CAKE, "Sell Cake")
                End Sub
     End Function
 

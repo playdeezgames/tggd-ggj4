@@ -15,8 +15,10 @@
     Public Const OPEN_DOOR As String = NameOf(OPEN_DOOR)
     Public Const POUR_BATTER As String = NameOf(POUR_BATTER)
     Public Const PUT_CAKE_PAN_IN As String = NameOf(PUT_CAKE_PAN_IN)
+    Public Const SELL_CAKE As String = NameOf(SELL_CAKE)
     Public Const SLEEP As String = NameOf(SLEEP)
     Public Const TAKE_CAKE_PAN_OUT As String = NameOf(TAKE_CAKE_PAN_OUT)
     Public Const TURN_OFF As String = NameOf(TURN_OFF)
     Public Const TURN_ON As String = NameOf(TURN_ON)
+    Public Const UNMOLD_CAKE As String = NameOf(UNMOLD_CAKE)
 End Module

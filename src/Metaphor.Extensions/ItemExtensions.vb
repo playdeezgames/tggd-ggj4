@@ -53,8 +53,19 @@ Public Module ItemExtensions
     ReadOnly describeTable As New Dictionary(Of String, ItemDescriber) From
         {
             {ItemSubtypes.MIXING_BOWL, AddressOf DescribeMixingBowl},
+            {ItemSubtypes.CAKE_BOARD, AddressOf DescribeCakeBoard},
             {ItemSubtypes.CAKE_PAN, AddressOf DescribeCakePan}
         }
+
+    Private Sub DescribeCakeBoard(item As IItem)
+        DescribeItem(item)
+        Dim layers = item.GetCounter(Counters.LAYERS)
+        If layers > 0 Then
+            item.AddMessage($"{item.Name} has a {layers} layer cake on it.")
+        Else
+            item.AddMessage($"{item.Name} is completely cakeless!")
+        End If
+    End Sub
 
     Private Sub DescribeCakePan(item As IItem)
         DescribeItem(item)
