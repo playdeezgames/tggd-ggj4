@@ -6,12 +6,12 @@ Friend Module BakeryInitializer
                               context As IInitializationContext,
                               blueRoom As ILocation) As LocationInitializer
         Return Sub(bakery)
-                   bakery.CreateFeature(FeatureSubtypes.DOOR, "Door to the Blue Room", InitializeBlueRoomDoor(context, blueRoom))
-                   bakery.CreateFeature(FeatureSubtypes.CUPBOARD, "Cupboard", InitializeCupboard(context))
-                   bakery.CreateFeature(FeatureSubtypes.DRY_PANTRY, "Dry Pantry", InitializeDryPantry(context))
-                   bakery.CreateFeature(FeatureSubtypes.BIN, "Bin", InitializeBin(context))
-                   bakery.CreateFeature(FeatureSubtypes.REFRIGERATOR, "Refrigerator", InitializeRefrigerator(context))
-                   bakery.CreateFeature(FeatureSubtypes.OVEN, "Oven", InitializeOven(context))
+                   bakery.CreateDoor(InitializeBlueRoomDoor(context, blueRoom))
+                   bakery.CreateCupboard(InitializeCupboard(context))
+                   bakery.CreateDryPantry(InitializeDryPantry(context))
+                   bakery.CreateBin(InitializeBin(context))
+                   bakery.CreateRefrigerator(InitializeRefrigerator(context))
+                   bakery.CreateOven(InitializeOven(context))
                End Sub
     End Function
 
