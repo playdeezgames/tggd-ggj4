@@ -7,8 +7,8 @@ Public Module LocationExtensions
         location.CreateCharacter(CharacterSubtypes.N00B, name, initializer)
     End Sub
     <Extension>
-    Public Sub CreateDoor(location As ILocation, initializer As FeatureInitializer)
-        location.CreateFeature(FeatureSubtypes.DOOR, "Door to the Blue Room", initializer)
+    Public Sub CreateDoor(location As ILocation, name As String, initializer As FeatureInitializer)
+        location.CreateFeature(FeatureSubtypes.DOOR, name, initializer)
     End Sub
     <Extension>
     Public Sub CreateCupboard(location As ILocation, initializer As FeatureInitializer)
@@ -29,6 +29,10 @@ Public Module LocationExtensions
     <Extension>
     Public Sub CreateOven(location As ILocation, initializer As FeatureInitializer)
         location.CreateFeature(FeatureSubtypes.OVEN, "Oven", initializer)
+    End Sub
+    <Extension>
+    Public Sub CreateSupplyDrawer(location As ILocation, initializer As FeatureInitializer)
+        location.CreateFeature(FeatureSubtypes.SUPPLY_DRAWER, "Supply Drawer", initializer)
     End Sub
     <Extension>
     Public Sub CreateBed(location As ILocation, initializer As FeatureInitializer)

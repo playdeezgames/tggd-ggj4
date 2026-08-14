@@ -6,4 +6,5 @@
     Friend Const DRY_PANTRY As String = NameOf(DRY_PANTRY)
     Friend Const OVEN As String = NameOf(OVEN)
     Friend Const REFRIGERATOR As String = NameOf(REFRIGERATOR)
+    Friend Const SUPPLY_DRAWER As String = NameOf(SUPPLY_DRAWER)
 End Module

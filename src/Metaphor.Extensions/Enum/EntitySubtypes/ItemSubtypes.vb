@@ -4,4 +4,5 @@
     Public Const MEASURING_SPOONS As String = NameOf(MEASURING_SPOONS)
     Public Const MIXING_BOWL As String = NameOf(MIXING_BOWL)
     Public Const WOODEN_SPOON As String = NameOf(WOODEN_SPOON)
+    Friend Const CAKE_BOARD As String = NameOf(CAKE_BOARD)
 End Module

@@ -48,4 +48,10 @@ Public Module InventoryExtensions
         item.CreateVerb(VerbSubtypes.POUR_BATTER, "Pour Batter")
     End Sub
 #End Region
+#Region "Cake Board"
+    <Extension>
+    Public Sub CreateCakeboard(inventory As IInventory, initializer As ItemInitializer)
+        inventory.CreateItem(ItemSubtypes.CAKE_BOARD, "Cake Board", initializer)
+    End Sub
+#End Region
 End Module
