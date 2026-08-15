@@ -26,7 +26,7 @@ Friend Module BakeryInitializer
 
     Private Function InitializeComputer(context As IInitializationContext) As FeatureInitializer
         Return Sub(computer)
-
+                   computer.AddPrices()
                End Sub
     End Function
 

@@ -24,8 +24,13 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.BAKE_CAKE, AddressOf CanBakeCake},
             {VerbSubtypes.PUT_CAKE_PAN_IN, AddressOf CanPutCakePanIn},
             {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf CanTakeCakePanOut},
-            {VerbSubtypes.CLOSE_DOOR, AddressOf CanCloseDoor}
+            {VerbSubtypes.CLOSE_DOOR, AddressOf CanCloseDoor},
+            {VerbSubtypes.BUY_SUPPLIES, AddressOf CanBuySupplies}
         }
+
+    Private Function CanBuySupplies(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.GetDimension(Dimensions.JOOLS) >= verb.GetDimension(Dimensions.JOOLS)
+    End Function
 
     Private Function CanTakeCakePanOut(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Return feature.EntitySubtype = FeatureSubtypes.OVEN AndAlso
@@ -116,8 +121,19 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.PUT_CAKE_PAN_IN, AddressOf HandlePutCakePanIn},
             {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf HandleTakeCakePanOut},
             {VerbSubtypes.BAKE_CAKE, AddressOf HandleBakeCake},
-            {VerbSubtypes.CLOSE_DOOR, AddressOf HandleCloseDoor}
+            {VerbSubtypes.CLOSE_DOOR, AddressOf HandleCloseDoor},
+            {VerbSubtypes.BUY_SUPPLIES, AddressOf HandleBuySupplies}
         }
+
+    Private Sub HandleBuySupplies(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim jools = verb.GetDimension(Dimensions.JOOLS)
+        actor.AddMessage($"{actor.Name} spends {jools:f2} jools")
+        actor.ChangeDimension(Dimensions.JOOLS, -jools)
+        actor.AddMessage($"{actor.Name} now has {actor.GetDimension(Dimensions.JOOLS):f2} jools")
+        Dim targetFeature As IFeature = actor.Location.Features.Single(Function(x) x.EntitySubtype = verb.GetMetadata(Metadatas.FEATURE_SUBTYPE))
+        targetFeature.MaximumCounter(verb.GetMetadata(Metadatas.COUNTER_ID))
+        targetFeature.Describe()
+    End Sub
 
     Private Sub HandleBakeCake(verb As IVerb, feature As IFeature, actor As ICharacter)
         actor.AddMessage($"{actor.Name} waits until the cake is done.")

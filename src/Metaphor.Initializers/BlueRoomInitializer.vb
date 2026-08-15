@@ -28,11 +28,12 @@ Friend Module BlueRoomInitializer
     Private Function InitializeAvatar(context As IInitializationContext) As CharacterInitializer
         Return Sub(character)
                    character.World.Avatar = character
-                   character.InitializeDimension(Dimensions.JOOLS, 0.0, 0.0, Double.MaxValue)
 #If DEBUG Then
+                   character.InitializeDimension(Dimensions.JOOLS, 20.0, 0.0, Double.MaxValue)
                    character.InitializeCounter(Counters.ENERGY, 10, 0, 100)
                    character.InitializeCounter(Counters.HEALTH, 10, 0, 100)
 #Else
+                   character.InitializeDimension(Dimensions.JOOLS, 0.0, 0.0, Double.MaxValue)
                    character.InitializeCounter(Counters.ENERGY, 100, 0, 100)
                    character.InitializeCounter(Counters.HEALTH, 100, 0, 100)
 #End If

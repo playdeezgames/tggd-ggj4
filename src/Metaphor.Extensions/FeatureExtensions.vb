@@ -9,8 +9,26 @@ Public Module FeatureExtensions
     Private Delegate Sub FeatureDescriber(feature As IFeature)
     Private ReadOnly featureDescribers As New Dictionary(Of String, FeatureDescriber) From
         {
-            {FeatureSubtypes.OVEN, AddressOf DescribeOven}
+            {FeatureSubtypes.OVEN, AddressOf DescribeOven},
+            {FeatureSubtypes.DRY_PANTRY, AddressOf DescribeDryPantry},
+            {FeatureSubtypes.REFRIGERATOR, AddressOf DescribeRefrigerator}
         }
+
+    Private Sub DescribeRefrigerator(feature As IFeature)
+        DescribeFeature(feature)
+        feature.AddMessage($"Butter: {feature.GetCounterStatistic(Counters.BUTTER)}")
+        feature.AddMessage($"Eggs: {feature.GetCounterStatistic(Counters.EGG)}")
+        feature.AddMessage($"Milk: {feature.GetCounterStatistic(Counters.MILK)}")
+    End Sub
+
+    Private Sub DescribeDryPantry(feature As IFeature)
+        DescribeFeature(feature)
+        feature.AddMessage($"Baking Powder: {feature.GetCounterStatistic(Counters.BAKING_POWDER)}")
+        feature.AddMessage($"Flour: {feature.GetCounterStatistic(Counters.FLOUR)}")
+        feature.AddMessage($"Salt: {feature.GetCounterStatistic(Counters.SALT)}")
+        feature.AddMessage($"Sugar: {feature.GetCounterStatistic(Counters.SUGAR)}")
+        feature.AddMessage($"Vanilla: {feature.GetCounterStatistic(Counters.VANILLA)}")
+    End Sub
 
     Private Sub DescribeOven(feature As IFeature)
         DescribeFeature(feature)
@@ -55,5 +73,32 @@ Public Module FeatureExtensions
     Public Sub CreateSleepVerb(feature As IFeature)
         feature.CreateVerb(VerbSubtypes.SLEEP, "Sleep")
     End Sub
+#End Region
+#Region "Computer Prices"
+    Private ReadOnly prices As New List(Of (Name As String, Price As Double, FeatureSubtype As String, CounterId As String)) From
+        {
+            ("Buy Baking Powder", 2.0, FeatureSubtypes.DRY_PANTRY, Counters.BAKING_POWDER),
+            ("Buy Flour", 5.0, FeatureSubtypes.DRY_PANTRY, Counters.FLOUR),
+            ("Buy Salt", 1.0, FeatureSubtypes.DRY_PANTRY, Counters.SALT),
+            ("Buy Sugar", 10.0, FeatureSubtypes.DRY_PANTRY, Counters.SUGAR),
+            ("Buy Vanilla", 25.0, FeatureSubtypes.DRY_PANTRY, Counters.VANILLA),
+            ("Buy Butter", 15.0, FeatureSubtypes.REFRIGERATOR, Counters.BUTTER),
+            ("Buy Eggs", 10.0, FeatureSubtypes.REFRIGERATOR, Counters.EGG),
+            ("Buy Milk", 10.0, FeatureSubtypes.REFRIGERATOR, Counters.MILK)
+        }
+    <Extension>
+    Public Sub AddPrices(feature As IFeature)
+        For Each price In prices
+            feature.CreateVerb(VerbSubtypes.BUY_SUPPLIES, $"{price.Name}({price.Price:f2} jools)", InitialBuySupplies(price.FeatureSubtype, price.CounterId, price.Price))
+        Next
+    End Sub
+
+    Private Function InitialBuySupplies(featureSubtype As String, counterId As String, price As Double) As VerbInitializer
+        Return Sub(verb)
+                   verb.SetMetadata(Metadatas.FEATURE_SUBTYPE, featureSubtype)
+                   verb.SetMetadata(Metadatas.COUNTER_ID, counterId)
+                   verb.SetDimension(Dimensions.JOOLS, price)
+               End Sub
+    End Function
 #End Region
 End Module
