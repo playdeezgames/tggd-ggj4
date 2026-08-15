@@ -38,4 +38,12 @@ Public Module LocationExtensions
     Public Sub CreateBed(location As ILocation, initializer As FeatureInitializer)
         location.CreateFeature(FeatureSubtypes.BED, "Bed", initializer)
     End Sub
+    <Extension>
+    Public Sub CreateComputer(location As ILocation, initializer As FeatureInitializer)
+        location.CreateFeature(FeatureSubtypes.COMPUTER, "Computer", initializer)
+    End Sub
+    <Extension>
+    Public Sub CreateRecipeBox(location As ILocation, initializer As FeatureInitializer)
+        location.CreateFeature(FeatureSubtypes.RECIPE_BOX, "Recipe Box", initializer)
+    End Sub
 End Module

@@ -5,4 +5,5 @@
     Public Const MIXING_BOWL As String = NameOf(MIXING_BOWL)
     Public Const WOODEN_SPOON As String = NameOf(WOODEN_SPOON)
     Friend Const CAKE_BOARD As String = NameOf(CAKE_BOARD)
+    Friend Const RECIPE_CARD As String = NameOf(RECIPE_CARD)
 End Module

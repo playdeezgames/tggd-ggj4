@@ -58,8 +58,17 @@ Public Module ItemExtensions
         {
             {ItemSubtypes.MIXING_BOWL, AddressOf DescribeMixingBowl},
             {ItemSubtypes.CAKE_BOARD, AddressOf DescribeCakeBoard},
-            {ItemSubtypes.CAKE_PAN, AddressOf DescribeCakePan}
+            {ItemSubtypes.CAKE_PAN, AddressOf DescribeCakePan},
+            {ItemSubtypes.RECIPE_CARD, AddressOf DescribeRecipeCard}
         }
+
+    Private Sub DescribeRecipeCard(item As IItem)
+        DescribeItem(item)
+        item.AddMessage($"Recipe for Batter:")
+        For Each entry In mixingbowlCounterTable.Values
+            item.AddMessage($"{entry.Name}: {entry.Quantity}")
+        Next
+    End Sub
 
     Private Sub DescribeCakeBoard(item As IItem)
         DescribeItem(item)

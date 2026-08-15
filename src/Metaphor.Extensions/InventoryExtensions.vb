@@ -55,4 +55,10 @@ Public Module InventoryExtensions
         inventory.CreateItem(ItemSubtypes.CAKE_BOARD, "Cake Board", initializer)
     End Sub
 #End Region
+#Region "Recipe Card"
+    <Extension>
+    Public Sub CreateRecipeCard(inventory As IInventory)
+        inventory.CreateItem(ItemSubtypes.RECIPE_CARD, "Recipe Card")
+    End Sub
+#End Region
 End Module

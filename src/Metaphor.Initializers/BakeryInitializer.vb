@@ -13,6 +13,20 @@ Friend Module BakeryInitializer
                    bakery.CreateRefrigerator(InitializeRefrigerator(context))
                    bakery.CreateOven(InitializeOven(context))
                    bakery.CreateSupplyDrawer(InitializeSupplyDrawer(context))
+                   bakery.CreateComputer(InitializeComputer(context))
+                   bakery.CreateRecipeBox(InitializeRecipeBox(context))
+               End Sub
+    End Function
+
+    Private Function InitializeRecipeBox(context As IInitializationContext) As FeatureInitializer
+        Return Sub(recipeBox)
+                   recipeBox.Inventory.CreateRecipeCard()
+               End Sub
+    End Function
+
+    Private Function InitializeComputer(context As IInitializationContext) As FeatureInitializer
+        Return Sub(computer)
+
                End Sub
     End Function
 
