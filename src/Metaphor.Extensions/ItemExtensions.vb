@@ -3,16 +3,16 @@ Imports Metaphor.Persistence
 
 Public Module ItemExtensions
 #Region "Mixing Bowl"
-    ReadOnly mixingbowlCounterTable As New Dictionary(Of String, String) From
+    ReadOnly mixingbowlCounterTable As New Dictionary(Of String, (Name As String, Quantity As Integer)) From
         {
-            {Counters.FLOUR, "Flour"},
-            {Counters.SUGAR, "Sugar"},
-            {Counters.VANILLA, "Vanilla"},
-            {Counters.BAKING_POWDER, "Baking Powder"},
-            {Counters.SALT, "Salt"},
-            {Counters.EGG, "Eggs"},
-            {Counters.BUTTER, "Butter"},
-            {Counters.MILK, "Milk"}
+            {Counters.FLOUR, ("Flour", 3)},
+            {Counters.SUGAR, ("Sugar", 2)},
+            {Counters.VANILLA, ("Vanilla", 1)},
+            {Counters.BAKING_POWDER, ("Baking Powder", 1)},
+            {Counters.SALT, ("Salt", 1)},
+            {Counters.EGG, ("Eggs", 2)},
+            {Counters.BUTTER, ("Butter", 2)},
+            {Counters.MILK, ("Milk", 1)}
         }
     <Extension>
     Sub Mix(item As IItem)
@@ -20,11 +20,14 @@ Public Module ItemExtensions
             Return
         End If
         Dim tally As Integer = 0
-        For Each counterId In mixingbowlCounterTable.Keys
-            tally += item.GetCounter(counterId)
-            item.MinimizeCounter(counterId)
+        Dim isBatter As Boolean = True
+        For Each entry In mixingbowlCounterTable
+            Dim counter = item.GetCounter(entry.Key)
+            tally += counter
+            isBatter = isBatter AndAlso counter = entry.Value.Quantity
+            item.MinimizeCounter(entry.Key)
         Next
-        item.ChangeDimension(Dimensions.BATTER, tally)
+        item.ChangeDimension(If(isBatter, Dimensions.BATTER, Dimensions.GLOP), tally)
     End Sub
     <Extension>
     Function HasBatter(item As IItem) As Boolean
@@ -46,6 +49,7 @@ Public Module ItemExtensions
             item.MinimizeCounter(counterId)
         Next
         item.MinimizeDimension(Dimensions.BATTER)
+        item.MinimizeDimension(Dimensions.GLOP)
     End Sub
 #End Region
 #Region "Describe"
@@ -83,16 +87,24 @@ Public Module ItemExtensions
         For Each entry In mixingbowlCounterTable
             Dim amount = item.GetCounter(entry.Key)
             If amount > 0 Then
-                item.AddMessage($"{entry.Value}: {amount}")
+                item.AddMessage($"{entry.Value.Name}: {amount}")
             End If
         Next
         DescribeItemBatter(item)
+        DescribeItemGlop(item)
     End Sub
 
     Private Sub DescribeItemBatter(item As IItem)
         If Not item.IsDimensionMinimum(Dimensions.BATTER) Then
             Dim batter = item.GetDimension(Dimensions.BATTER)
             item.AddMessage($"Batter: {batter:f2}")
+        End If
+    End Sub
+
+    Private Sub DescribeItemGlop(item As IItem)
+        If Not item.IsDimensionMinimum(Dimensions.GLOP) Then
+            Dim glop = item.GetDimension(Dimensions.GLOP)
+            item.AddMessage($"Glop: {glop:f2}")
         End If
     End Sub
 

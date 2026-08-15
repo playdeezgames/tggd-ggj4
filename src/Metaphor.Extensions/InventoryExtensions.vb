@@ -18,6 +18,7 @@ Public Module InventoryExtensions
         item.InitializeCounter(Counters.EGG, 0, 0, 5)
         item.CreateVerb(VerbSubtypes.MIX, "Mix")
         item.InitializeDimension(Dimensions.BATTER, 0.0, 0.0, Double.MaxValue)
+        item.InitializeDimension(Dimensions.GLOP, 0.0, 0.0, Double.MaxValue)
     End Sub
 #End Region
 #Region "Measuring Cup"
