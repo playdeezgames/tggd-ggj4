@@ -64,9 +64,9 @@ Friend Module BakeryInitializer
                    refrigerator.InitializeCounter(Counters.EGG, 30, 0, 60)
                    refrigerator.InitializeCounter(Counters.MILK, 50, 0, 100)
                    refrigerator.InitializeCounter(Counters.BUTTER, 25, 0, 50)
-                   refrigerator.CreateVerb(VerbSubtypes.ADD_EGG, "Add Egg")
-                   refrigerator.CreateVerb(VerbSubtypes.ADD_BUTTER, "Add Butter")
-                   refrigerator.CreateVerb(VerbSubtypes.ADD_MILK, "Add Milk")
+                   refrigerator.CreateVerb(VerbSubtypes.ADD_EGG, "Add Egg to Mixing Bowl")
+                   refrigerator.CreateVerb(VerbSubtypes.ADD_BUTTER, "Add Butter to Mixing Bowl")
+                   refrigerator.CreateVerb(VerbSubtypes.ADD_MILK, "Add Milk to Mixing Bowl")
                End Sub
     End Function
 
@@ -83,11 +83,11 @@ Friend Module BakeryInitializer
                    pantry.InitializeCounter(Counters.BAKING_POWDER, 25, 0, 50)
                    pantry.InitializeCounter(Counters.VANILLA, 25, 0, 50)
                    pantry.InitializeCounter(Counters.SALT, 250, 0, 500)
-                   pantry.CreateVerb(VerbSubtypes.ADD_FLOUR, "Add Flour")
-                   pantry.CreateVerb(VerbSubtypes.ADD_SUGAR, "Add Sugar")
-                   pantry.CreateVerb(VerbSubtypes.ADD_VANILLA, "Add Vanilla")
-                   pantry.CreateVerb(VerbSubtypes.ADD_SALT, "Add Salt")
-                   pantry.CreateVerb(VerbSubtypes.ADD_BAKING_POWDER, "Add Baking Powder")
+                   pantry.CreateVerb(VerbSubtypes.ADD_FLOUR, "Add Flour to Mixing Bowl")
+                   pantry.CreateVerb(VerbSubtypes.ADD_SUGAR, "Add Sugar to Mixing Bowl")
+                   pantry.CreateVerb(VerbSubtypes.ADD_VANILLA, "Add Vanilla to Mixing Bowl")
+                   pantry.CreateVerb(VerbSubtypes.ADD_SALT, "Add Salt to Mixing Bowl")
+                   pantry.CreateVerb(VerbSubtypes.ADD_BAKING_POWDER, "Add Baking Powder to Mixing Bowl")
                End Sub
     End Function
 
