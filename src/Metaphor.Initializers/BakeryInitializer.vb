@@ -32,17 +32,9 @@ Friend Module BakeryInitializer
 
     Private Function InitializeSupplyDrawer(context As IInitializationContext) As FeatureInitializer
         Return Sub(drawer)
-                   drawer.Inventory.CreateCakeboard(InitializeCakeboard(context))
-                   drawer.Inventory.CreateCakeboard(InitializeCakeboard(context))
-                   drawer.Inventory.CreateCakeboard(InitializeCakeboard(context))
-               End Sub
-    End Function
-
-    Private Function InitializeCakeboard(context As IInitializationContext) As ItemInitializer
-        Return Sub(cakeBoard)
-                   cakeBoard.InitializeCounter(Counters.LAYERS, 0, 0, 5)
-                   cakeBoard.CreateVerb(VerbSubtypes.UNMOLD_CAKE, "Unmold Cake")
-                   cakeBoard.CreateVerb(VerbSubtypes.SELL_CAKE, "Sell Cake")
+                   drawer.Inventory.CreateCakeboard()
+                   drawer.Inventory.CreateCakeboard()
+                   drawer.Inventory.CreateCakeboard()
                End Sub
     End Function
 

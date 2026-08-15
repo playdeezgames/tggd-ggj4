@@ -7,6 +7,7 @@
     Public Const ADD_SALT As String = NameOf(ADD_SALT)
     Public Const ADD_SUGAR As String = NameOf(ADD_SUGAR)
     Public Const ADD_VANILLA As String = NameOf(ADD_VANILLA)
+    Public Const BUY_CAKE_BOARD As String = NameOf(BUY_CAKE_BOARD)
     Public Const BUY_SUPPLIES As String = NameOf(BUY_SUPPLIES)
     Public Const BAKE_CAKE As String = NameOf(BAKE_CAKE)
     Public Const CLOSE_DOOR As String = NameOf(CLOSE_DOOR)

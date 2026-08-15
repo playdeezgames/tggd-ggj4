@@ -89,11 +89,12 @@ Public Module FeatureExtensions
     <Extension>
     Public Sub AddPrices(feature As IFeature)
         For Each price In prices
-            feature.CreateVerb(VerbSubtypes.BUY_SUPPLIES, $"{price.Name}({price.Price:f2} jools)", InitialBuySupplies(price.FeatureSubtype, price.CounterId, price.Price))
+            feature.CreateVerb(VerbSubtypes.BUY_SUPPLIES, $"{price.Name}({price.Price:f2} jools)", InitializeBuySupplies(price.FeatureSubtype, price.CounterId, price.Price))
         Next
+        feature.CreateVerb(VerbSubtypes.BUY_CAKE_BOARD, "Buy Cake Board(1.00 jools)")
     End Sub
 
-    Private Function InitialBuySupplies(featureSubtype As String, counterId As String, price As Double) As VerbInitializer
+    Private Function InitializeBuySupplies(featureSubtype As String, counterId As String, price As Double) As VerbInitializer
         Return Sub(verb)
                    verb.SetMetadata(Metadatas.FEATURE_SUBTYPE, featureSubtype)
                    verb.SetMetadata(Metadatas.COUNTER_ID, counterId)

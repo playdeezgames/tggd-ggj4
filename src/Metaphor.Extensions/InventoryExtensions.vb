@@ -51,9 +51,16 @@ Public Module InventoryExtensions
 #End Region
 #Region "Cake Board"
     <Extension>
-    Public Sub CreateCakeboard(inventory As IInventory, initializer As ItemInitializer)
-        inventory.CreateItem(ItemSubtypes.CAKE_BOARD, "Cake Board", initializer)
-    End Sub
+    Public Function CreateCakeboard(inventory As IInventory) As IItem
+        Return inventory.CreateItem(
+            ItemSubtypes.CAKE_BOARD,
+            "Cake Board",
+            Sub(cakeBoard)
+                cakeBoard.InitializeCounter(Counters.LAYERS, 0, 0, 5)
+                cakeBoard.CreateVerb(VerbSubtypes.UNMOLD_CAKE, "Unmold Cake")
+                cakeBoard.CreateVerb(VerbSubtypes.SELL_CAKE, "Sell Cake")
+            End Sub)
+    End Function
 #End Region
 #Region "Recipe Card"
     <Extension>

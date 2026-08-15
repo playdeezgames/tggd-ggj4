@@ -25,8 +25,13 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.PUT_CAKE_PAN_IN, AddressOf CanPutCakePanIn},
             {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf CanTakeCakePanOut},
             {VerbSubtypes.CLOSE_DOOR, AddressOf CanCloseDoor},
-            {VerbSubtypes.BUY_SUPPLIES, AddressOf CanBuySupplies}
+            {VerbSubtypes.BUY_SUPPLIES, AddressOf CanBuySupplies},
+            {VerbSubtypes.BUY_CAKE_BOARD, AddressOf CanBuyCakeBoard}
         }
+
+    Private Function CanBuyCakeBoard(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
+        Return actor.GetDimension(Dimensions.JOOLS) >= 1.0
+    End Function
 
     Private Function CanBuySupplies(verb As IVerb, feature As IFeature, actor As ICharacter) As Boolean
         Return actor.GetDimension(Dimensions.JOOLS) >= verb.GetDimension(Dimensions.JOOLS)
@@ -122,8 +127,17 @@ Public Module FeatureVerbExtensions
             {VerbSubtypes.TAKE_CAKE_PAN_OUT, AddressOf HandleTakeCakePanOut},
             {VerbSubtypes.BAKE_CAKE, AddressOf HandleBakeCake},
             {VerbSubtypes.CLOSE_DOOR, AddressOf HandleCloseDoor},
-            {VerbSubtypes.BUY_SUPPLIES, AddressOf HandleBuySupplies}
+            {VerbSubtypes.BUY_SUPPLIES, AddressOf HandleBuySupplies},
+            {VerbSubtypes.BUY_CAKE_BOARD, AddressOf HandleBuyCakeBoard}
         }
+
+    Private Sub HandleBuyCakeBoard(verb As IVerb, feature As IFeature, actor As ICharacter)
+        Dim jools = 1.0
+        Dim cakeBoard = actor.Inventory.CreateCakeboard()
+        actor.AddMessage($"{actor.Name} buys {cakeBoard.Name} for {jools:F2} jools.")
+        actor.ChangeDimension(Dimensions.JOOLS, -jools)
+        actor.AddMessage($"{actor.Name} now has {actor.GetDimension(Dimensions.JOOLS):f2} jools.")
+    End Sub
 
     Private Sub HandleBuySupplies(verb As IVerb, feature As IFeature, actor As ICharacter)
         Dim jools = verb.GetDimension(Dimensions.JOOLS)
