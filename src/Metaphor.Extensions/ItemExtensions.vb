@@ -9,6 +9,7 @@ Public Module ItemExtensions
             {Counters.SUGAR, ("Sugar", 2)},
             {Counters.VANILLA, ("Vanilla", 1)},
             {Counters.BAKING_POWDER, ("Baking Powder", 1)},
+            {Counters.BAKING_SODA, ("Baking Soda", 0)},
             {Counters.SALT, ("Salt", 1)},
             {Counters.EGG, ("Eggs", 2)},
             {Counters.BUTTER, ("Butter", 2)},

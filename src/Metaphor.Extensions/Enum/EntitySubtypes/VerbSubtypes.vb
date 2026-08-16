@@ -1,5 +1,6 @@
 ﻿Public Module VerbSubtypes
     Public Const ADD_BAKING_POWDER As String = NameOf(ADD_BAKING_POWDER)
+    Public Const ADD_BAKING_SODA As String = NameOf(ADD_BAKING_SODA)
     Public Const ADD_BUTTER As String = NameOf(ADD_BUTTER)
     Public Const ADD_EGG As String = NameOf(ADD_EGG)
     Public Const ADD_FLOUR As String = NameOf(ADD_FLOUR)

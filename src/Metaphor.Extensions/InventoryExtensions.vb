@@ -11,6 +11,7 @@ Public Module InventoryExtensions
         item.InitializeCounter(Counters.FLOUR, 0, 0, 5)
         item.InitializeCounter(Counters.SUGAR, 0, 0, 5)
         item.InitializeCounter(Counters.BAKING_POWDER, 0, 0, 5)
+        item.InitializeCounter(Counters.BAKING_SODA, 0, 0, 5)
         item.InitializeCounter(Counters.SALT, 0, 0, 5)
         item.InitializeCounter(Counters.VANILLA, 0, 0, 5)
         item.InitializeCounter(Counters.BUTTER, 0, 0, 5)

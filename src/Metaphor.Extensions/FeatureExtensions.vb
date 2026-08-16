@@ -24,6 +24,7 @@ Public Module FeatureExtensions
     Private Sub DescribeDryPantry(feature As IFeature)
         DescribeFeature(feature)
         feature.AddMessage($"Baking Powder: {feature.GetCounterStatistic(Counters.BAKING_POWDER)}")
+        feature.AddMessage($"Baking Soda: {feature.GetCounterStatistic(Counters.BAKING_SODA)}")
         feature.AddMessage($"Flour: {feature.GetCounterStatistic(Counters.FLOUR)}")
         feature.AddMessage($"Salt: {feature.GetCounterStatistic(Counters.SALT)}")
         feature.AddMessage($"Sugar: {feature.GetCounterStatistic(Counters.SUGAR)}")
@@ -78,6 +79,7 @@ Public Module FeatureExtensions
     Private ReadOnly prices As New List(Of (Name As String, Price As Double, FeatureSubtype As String, CounterId As String)) From
         {
             ("Buy Baking Powder", 2.0, FeatureSubtypes.DRY_PANTRY, Counters.BAKING_POWDER),
+            ("Buy Baking Soda", 2.0, FeatureSubtypes.DRY_PANTRY, Counters.BAKING_SODA),
             ("Buy Flour", 5.0, FeatureSubtypes.DRY_PANTRY, Counters.FLOUR),
             ("Buy Salt", 1.0, FeatureSubtypes.DRY_PANTRY, Counters.SALT),
             ("Buy Sugar", 10.0, FeatureSubtypes.DRY_PANTRY, Counters.SUGAR),

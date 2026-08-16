@@ -73,6 +73,7 @@ Friend Module BakeryInitializer
                    pantry.InitializeCounter(Counters.FLOUR, 50, 0, 100)
                    pantry.InitializeCounter(Counters.SUGAR, 50, 0, 100)
                    pantry.InitializeCounter(Counters.BAKING_POWDER, 25, 0, 50)
+                   pantry.InitializeCounter(Counters.BAKING_SODA, 25, 0, 50)
                    pantry.InitializeCounter(Counters.VANILLA, 25, 0, 50)
                    pantry.InitializeCounter(Counters.SALT, 250, 0, 500)
                    pantry.CreateVerb(VerbSubtypes.ADD_FLOUR, "Add Flour to Mixing Bowl")
@@ -80,6 +81,7 @@ Friend Module BakeryInitializer
                    pantry.CreateVerb(VerbSubtypes.ADD_VANILLA, "Add Vanilla to Mixing Bowl")
                    pantry.CreateVerb(VerbSubtypes.ADD_SALT, "Add Salt to Mixing Bowl")
                    pantry.CreateVerb(VerbSubtypes.ADD_BAKING_POWDER, "Add Baking Powder to Mixing Bowl")
+                   pantry.CreateVerb(VerbSubtypes.ADD_BAKING_SODA, "Add Baking Soda to Mixing Bowl")
                End Sub
     End Function
 

@@ -1,5 +1,6 @@
 ﻿Public Module Counters
     Public Const BAKING_POWDER As String = NameOf(BAKING_POWDER)
+    Public Const BAKING_SODA As String = NameOf(BAKING_SODA)
     Public Const BUTTER As String = NameOf(BUTTER)
     Public Const EGG As String = NameOf(EGG)
     Public Const ENERGY As String = NameOf(ENERGY)
